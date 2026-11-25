@@ -1110,5 +1110,27 @@
       }
     },
     "headphones": false
+  },
+  "rblx_hype_obj": {
+    "skin": "#dbb18f",
+    "body": "boy",
+    "faceStyle": "roblox",
+    "hair": {
+      "style": "hypeSpiky",
+      "color": "#1c1e26"
+    },
+    "outfit": {
+      "torso": {
+        "kind": "cyberHoodie",
+        "color": "#202330",
+        "trim": "#9b4dff"
+      },
+      "legs": {
+        "color": "#2b2e3a",
+        "length": 1,
+        "shoes": "#6f38c5"
+      }
+    },
+    "headphones": true
   }
 }
