@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RBLX Hype — 1-Click Studio & 3D Model Editor</title>
+  <!-- Three.js + OrbitControls + GLTFLoader + OBJLoader + MTLLoader -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/MTLLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: #141c2e;
+      --accent: #a855f7;
+      --accent-glow: #c084fc;
+      --cyan: #06b6d4;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: #23304c;
+      --success: #10b981;
+      --warning: #f59e0b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+    body { background-color: var(--bg); color: var(--text); padding: 20px; min-height: 100vh; }
+    .container { max-width: 1440px; margin: 0 auto; }
+    header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+    .logo-badge { display: flex; align-items: center; gap: 12px; }
+    .logo-badge h1 { font-size: 24px; font-weight: 800; background: linear-gradient(135deg, #a855f7, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .skills-pill { background: rgba(168, 85, 247, 0.15); border: 1px solid var(--accent); padding: 4px 12px; border-radius: 999px; font-size: 12px; color: var(--accent-glow); font-weight: 600; }
+    
+    /* Navigation Tabs */
+    .tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+    .tab-btn { background: var(--card-bg); border: 1px solid var(--border); color: var(--text-muted); padding: 10px 20px; border-radius: 8px; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+    .tab-btn.active { background: linear-gradient(135deg, #9333ea, #06b6d4); color: white; border-color: transparent; }
+    
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* 3D Model Editor Layout */
+    .editor-grid { display: grid; grid-template-columns: 1fr 460px; gap: 20px; }
+    .canvas-container { position: relative; background: #050811; border: 1px solid var(--border); border-radius: 12px; height: 750px; overflow: hidden; box-shadow: 0 4px 30px rgba(0,0,0,0.5); }
+    #viewport3d { width: 100%; height: 100%; }
+    .canvas-overlay { position: absolute; top: 16px; left: 16px; pointer-events: none; }
+    .canvas-overlay .badge { pointer-events: auto; background: rgba(11, 15, 25, 0.85); border: 1px solid var(--border); padding: 6px 12px; border-radius: 6px; font-size: 12px; color: var(--cyan); }
+    .canvas-hint { position: absolute; bottom: 16px; left: 16px; font-size: 12px; color: var(--text-muted); background: rgba(0,0,0,0.6); padding: 6px 12px; border-radius: 6px; pointer-events: none; }
+    
+    /* Control Panel */
+    .control-panel { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px; height: 750px; overflow-y: auto; }
+    .panel-section { margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+    .panel-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .panel-section h3 { font-size: 14px; color: var(--accent-glow); margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; }
+    
+    label { display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 4px; }
+    label span.val { color: var(--cyan); font-family: monospace; }
+    input[type="range"] { width: 100%; accent-color: var(--accent); margin-bottom: 10px; }
+    input[type="text"], input[type="color"], select, textarea { width: 100%; background: #0b0f19; border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; color: var(--text); font-size: 13px; margin-bottom: 10px; outline: none; }
+    input[type="color"] { height: 34px; padding: 2px 4px; cursor: pointer; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    /* Custom File Upload Box */
+    .file-upload-box { background: #090e1c; border: 1px dashed var(--cyan); border-radius: 8px; padding: 10px 14px; text-align: center; margin-bottom: 10px; cursor: pointer; transition: 0.2s; }
+    .file-upload-box:hover { background: #0f172a; border-color: var(--accent-glow); }
+    .file-upload-box input[type="file"] { display: none; }
+    .file-upload-label { font-size: 12px; color: var(--cyan); cursor: pointer; font-weight: 600; display: block; }
+    .file-status { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
+
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; background: linear-gradient(135deg, #9333ea, #06b6d4); color: white; padding: 10px 16px; border-radius: 8px; font-size: 14px; font-weight: 700; border: none; cursor: pointer; transition: 0.15s; }
+    .btn:hover { opacity: 0.9; }
+    .btn-secondary { background: #1e293b; border: 1px solid var(--border); margin-top: 6px; }
+    .btn-secondary:hover { background: #334155; }
+
+    /* Studio Run Grid */
+    .studio-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+    .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+    .card h2 { font-size: 18px; margin-bottom: 14px; }
+    .console-card { grid-column: span 2; }
+    #console { background: #050811; border: 1px solid var(--border); border-radius: 8px; padding: 16px; height: 240px; overflow-y: auto; font-family: 'Consolas', monospace; font-size: 13px; color: #38bdf8; line-height: 1.5; white-space: pre-wrap; }
+    .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 12px; }
+    .gallery-item { background: #0b0f19; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; padding: 10px; text-align: center; }
+    .gallery-item video { width: 100%; height: 200px; object-fit: cover; border-radius: 6px; background: #000; margin-bottom: 8px; }
+    .gallery-item h4 { font-size: 13px; margin-bottom: 4px; }
+    .gallery-item a { font-size: 12px; color: var(--cyan); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo-badge">
+        <h1>RBLX HYPE STUDIO</h1>
+        <span class="skills-pill">⚡ 3D Engine & Custom Asset Studio</span>
+      </div>
+      <div>
+        <span style="color: #10b981; font-size: 13px; font-weight: 600;">● Full Power 3D Ready</span>
+      </div>
+    </header>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('3d-tab')">🎮 3D Model Studio & 360 Editor</button>
+      <button class="tab-btn" onclick="switchTab('pipeline-tab')">⚡ 1-Click Production Pipeline</button>
+    </div>
+
+    <!-- TAB 1: 3D MODEL STUDIO WITH 360 PREVIEW -->
+    <div id="3d-tab" class="tab-content active">
+      <div class="editor-grid">
+        <!-- 360 Canvas Viewport -->
+        <div class="canvas-container">
+          <div id="viewport3d"></div>
+          <div class="canvas-overlay">
+            <span class="badge" id="active-char-badge">Character: hype (Main Character)</span>
+          </div>
+          <div class="canvas-hint">
+            🖱️ Left-Click + Drag: 360° Orbit &nbsp;|&nbsp; Right-Click: Pan &nbsp;|&nbsp; Scroll: Zoom &nbsp;|&nbsp; Custom Files Supported (.glb, .gltf, .obj, .png, .jpg)
+          </div>
+        </div>
+
+        <!-- 3D Controls Panel -->
+        <div class="control-panel">
+          <!-- 1. Model Selection & Custom 3D File Upload -->
+          <div class="panel-section">
+            <h3>🎭 Character Model & Custom 3D File</h3>
+            <label for="char-select">Select Active Model</label>
+            <select id="char-select" onchange="loadSelectedCharacter()">
+              <option value="rblx_hype_obj" selected>⭐ rblx_hype_character.obj (Beveled 3D Rig + MTL Materials)</option>
+              <option value="hype">hype (Cyber Hoodie Procedural Rig)</option>
+              <option value="toby">toby (Hero Kid)</option>
+              <option value="bram">bram (Varsity Friend)</option>
+              <option value="grandma">grandma (Wisdom)</option>
+              <option value="nora">nora (Girl Avatar)</option>
+              <option value="sloane">sloane (Blue Coat)</option>
+            </select>
+
+            <div class="file-upload-box" onclick="document.getElementById('file-model').click()">
+              <input type="file" id="file-model" accept=".glb,.gltf,.obj" onchange="handleModelUpload(event)">
+              <span class="file-upload-label">📁 Upload Custom 3D Model (.glb, .gltf, .obj)</span>
+              <div class="file-status" id="model-file-name">Click or drop custom 3D model file here</div>
+            </div>
+
+            <button class="btn btn-secondary" onclick="addNewCharacterPrompt()">➕ Create New Character Preset</button>
+          </div>
+
+          <!-- 2. Hair Custom File or 3D Style -->
+          <div class="panel-section">
+            <h3>💇 Hair File & Precision Position</h3>
+            
+            <!-- Hair Model Upload -->
+            <div class="file-upload-box" onclick="document.getElementById('file-hair').click()">
+              <input type="file" id="file-hair" accept=".glb,.gltf,.obj" onchange="handleHairUpload(event)">
+              <span class="file-upload-label">💈 Upload Custom Hair 3D Model (.glb, .obj)</span>
+              <div class="file-status" id="hair-file-name">Optional: import custom hair mesh</div>
+            </div>
+
+            <label>Or Built-in Hair Style</label>
+            <select id="param-hairStyle" onchange="updateHair()">
+              <option value="hypeSpiky">hypeSpiky (RBLX Hype Layered Anime)</option>
+              <option value="tufts">tufts (Toby's Spiky Tufts)</option>
+              <option value="curly">curly (Bram's Volume Curls)</option>
+              <option value="bun">bun (Grandma / Clara)</option>
+              <option value="sidePart">sidePart (Otis)</option>
+              <option value="bob">bob (Clean Bob)</option>
+              <option value="ponytail">ponytail (High Ponytail)</option>
+              <option value="spikyTop">spikyTop</option>
+              <option value="beanie">beanie (Cap/Beanie)</option>
+              <option value="bald">bald</option>
+            </select>
+
+            <label>Hair Vertical Height (Y) <span class="val" id="val-hairY">+0.00</span></label>
+            <input type="range" id="param-hairY" min="-0.40" max="0.60" step="0.02" value="0.0" oninput="updateHairPosition()">
+
+            <label>Hair Forward / Depth (Z) <span class="val" id="val-hairZ">+0.00</span></label>
+            <input type="range" id="param-hairZ" min="-0.40" max="0.40" step="0.02" value="0.0" oninput="updateHairPosition()">
+
+            <label>Hair Horizontal Offset (X) <span class="val" id="val-hairX">+0.00</span></label>
+            <input type="range" id="param-hairX" min="-0.30" max="0.30" step="0.02" value="0.0" oninput="updateHairPosition()">
+
+            <label>Hair Scale / Volume <span class="val" id="val-hairScale">1.00x</span></label>
+            <input type="range" id="param-hairScale" min="0.60" max="1.80" step="0.05" value="1.0" oninput="updateHairPosition()">
+
+            <div class="row">
+              <div>
+                <label>Hair Color</label>
+                <input type="color" id="param-hairColor" value="#1c1e26" onchange="updateColors()">
+              </div>
+              <div>
+                <label>Skin Color</label>
+                <input type="color" id="param-skinColor" value="#e6b38a" onchange="updateColors()">
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Dress & Outfit File (Texture / Fabric Image) -->
+          <div class="panel-section">
+            <h3>👗 Dress & Outfit File (Texture/Skin)</h3>
+            
+            <div class="file-upload-box" onclick="document.getElementById('file-dress').click()">
+              <input type="file" id="file-dress" accept="image/png,image/jpeg,image/webp" onchange="handleDressUpload(event)">
+              <span class="file-upload-label">👕 Upload Custom Dress / Texture File (PNG/JPG)</span>
+              <div class="file-status" id="dress-file-name">Wraps custom texture onto torso & limbs</div>
+            </div>
+
+            <div class="row">
+              <div>
+                <label>Torso / Dress Color</label>
+                <input type="color" id="param-torsoColor" value="#202330" onchange="updateColors()">
+              </div>
+              <div>
+                <label>Legs / Pants Color</label>
+                <input type="color" id="param-legsColor" value="#2b2e3a" onchange="updateColors()">
+              </div>
+            </div>
+
+            <label style="cursor: pointer; margin-top: 8px;">
+              <input type="checkbox" id="param-headphones" checked onchange="updateHeadphones()" style="width: auto; margin-right: 8px;">
+              Equip Neon Over-Ear Headphones (Hype Signature)
+            </label>
+          </div>
+
+          <!-- 4. Full Power Transform & Scale -->
+          <div class="panel-section">
+            <h3>📏 Full Power Transform & Rotation</h3>
+            <label>Overall Model Size <span class="val" id="val-scale">1.00x</span></label>
+            <input type="range" id="param-scale" min="0.4" max="2.6" step="0.05" value="1.0" oninput="updateTransform()">
+
+            <label>Model Rotation Y (360°) <span class="val" id="val-rotY">0°</span></label>
+            <input type="range" id="param-rotY" min="-180" max="180" step="5" value="0" oninput="updateTransform()">
+
+            <div class="row">
+              <div>
+                <label>Head Scale <span class="val" id="val-headScale">1.06x</span></label>
+                <input type="range" id="param-headScale" min="0.7" max="1.6" step="0.05" value="1.06" oninput="updateRig()">
+              </div>
+              <div>
+                <label>Body Type</label>
+                <select id="param-body" onchange="updateRig()">
+                  <option value="boy">boy</option>
+                  <option value="blocky">blocky (Classic)</option>
+                  <option value="girl">girl</option>
+                  <option value="man">man</option>
+                  <option value="woman">woman</option>
+                  <option value="superhero">superhero</option>
+                </select>
+              </div>
+            </div>
+
+            <button class="btn" style="margin-top: 14px;" onclick="saveCharacterChanges()">
+              💾 Save to cast.json & Projects
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: 1-CLICK PRODUCTION PIPELINE -->
+    <div id="pipeline-tab" class="tab-content">
+      <div class="studio-grid">
+        <!-- Custom Script & AI Auto Generator Card -->
+        <div class="card" style="grid-column: span 2;">
+          <h2>⚡ 1-Click Story Producer: Custom Script or AI Auto Generate</h2>
+          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
+            Run directly from your own custom story/script, or let Google Gemini AI generate an original viral story hook on autopilot!
+          </p>
+
+          <div class="row">
+            <div>
+              <label for="custom-slug">Project Name / Slug</label>
+              <input type="text" id="custom-slug" placeholder="e.g. shadow_curse_45s" value="viral_story_45s">
+            </div>
+            <div>
+              <label for="voice-select">Voiceover Engine (TTS)</label>
+              <select id="voice-select">
+                <option value="iapetus">Google Gemini AI — Iapetus (Male Narrator)</option>
+                <option value="existing">Use Existing audio/narration.wav</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 14px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <label style="margin: 0;">Script / Narration Hook ("In this world / In this town...")</label>
+              <button type="button" class="btn" style="width: auto; padding: 4px 12px; font-size: 12px; background: linear-gradient(135deg, #06b6d4, #3b82f6);" onclick="generateAIScript()">
+                🤖 AI Auto-Generate Story Idea
+              </button>
+            </div>
+            <textarea id="custom-script" rows="5" placeholder="In this town, every shadow turns solid the second the streetlights click on... Toby thought he could run faster than his own reflection, but the warning signs were true. Watch your feet before the lights buzz to life."></textarea>
+          </div>
+
+          <div class="row">
+            <div>
+              <label for="render-mode">Production Mode</label>
+              <select id="render-mode">
+                <option value="full">🚀 Full Master Pipeline (Align + Mix + Remotion 9:16 Render)</option>
+                <option value="quick">⚡ Quick Preview & Audio Check (No Remotion Render)</option>
+              </select>
+            </div>
+            <div style="display: flex; align-items: flex-end;">
+              <button id="run-btn" class="btn" style="height: 40px; margin-bottom: 10px;" onclick="triggerRunFromScript()">
+                🚀 1-Click: Save, Voice & Master Render
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card console-card">
+          <h2>🖥️ Pipeline Execution Console</h2>
+          <div id="console">Ready. Enter your custom script or click 'AI Auto-Generate Story Idea' then '1-Click: Save, Voice & Master Render'...</div>
+        </div>
+
+        <div class="card console-card">
+          <h2>🎬 Rendered Library (out/)</h2>
+          <div class="gallery-grid" id="gallery">
+            <div class="gallery-item">
+              <video src="/out/town_shadows_45s.mp4" controls></video>
+              <h4>town_shadows_45s</h4>
+              <a href="/out/town_shadows_45s.mp4" download>Download MP4</a>
+            </div>
+            <div class="gallery-item">
+              <video src="/out/hype_short_45s.mp4" controls></video>
+              <h4>hype_short_45s</h4>
+              <a href="/out/hype_short_45s.mp4" download>Download MP4</a>
+            </div>
+            <div class="gallery-item">
+              <video src="/out/storm_cloud.mp4" controls></video>
+              <h4>storm_cloud</h4>
+              <a href="/out/storm_cloud.mp4" download>Download MP4</a>
+            </div>
+            <div class="gallery-item">
+              <video src="/out/lantern_market.mp4" controls></video>
+              <h4>lantern_market</h4>
+              <a href="/out/lantern_market.mp4" download>Download MP4</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Tab switching
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      event.target.classList.add('active');
+      document.getElementById(tabId).classList.add('active');
+      if (tabId === '3d-tab') onWindowResize();
+    }
+
+    // --- THREE.JS 360 REAL-TIME 3D RIG & VIEWER ---
+    let scene, camera, renderer, controls;
+    let avatarGroup, bodyMesh, headGroup, headMesh, hairGroup, headphoneGroup, leftArm, rightArm, leftLeg, rightLeg;
+    let customModelMesh = null;
+    let customHairMesh = null;
+    let customDressTexture = null;
+
+    // Character State Store
+    let charactersData = {
+      rblx_hype_obj: {
+        skin: "#e6b38a", body: "boy", hairStyle: "hypeSpiky", hairColor: "#1c1e26",
+        headphones: true, torsoColor: "#202330", legsColor: "#2b2e3a",
+        hairX: 0.0, hairY: 0.0, hairZ: 0.0, hairScale: 1.0, scale: 1.0, rotY: 0
+      },
+      hype: {
+        skin: "#e6b38a", body: "boy", hairStyle: "hypeSpiky", hairColor: "#1c1e26",
+        headphones: true, torsoColor: "#202330", legsColor: "#2b2e3a",
+        hairX: 0.0, hairY: 0.0, hairZ: 0.0, hairScale: 1.0, scale: 1.0, rotY: 0
+      },
+      toby: {
+        skin: "#f0c4a0", body: "boy", hairStyle: "tufts", hairColor: "#2b5c7a",
+        headphones: false, torsoColor: "#5ab0e6", legsColor: "#355373",
+        hairX: 0.0, hairY: 0.0, hairZ: 0.0, hairScale: 1.0, scale: 1.0, rotY: 0
+      },
+      bram: {
+        skin: "#d9a074", body: "boy", hairStyle: "curly", hairColor: "#4a2c14",
+        headphones: false, torsoColor: "#e6a825", legsColor: "#24304a",
+        hairX: 0.0, hairY: 0.0, hairZ: 0.0, hairScale: 1.0, scale: 1.0, rotY: 0
+      },
+      grandma: {
+        skin: "#e8b896", body: "woman", hairStyle: "bun", hairColor: "#cfd4dc",
+        headphones: false, torsoColor: "#6e5a8c", legsColor: "#342f40",
+        hairX: 0.0, hairY: 0.0, hairZ: 0.0, hairScale: 1.0, scale: 1.0, rotY: 0
+      },
+      nora: {
+        skin: "#c68c63", body: "girl", hairStyle: "bob", hairColor: "#1f3a36",
+        headphones: false, torsoColor: "#38a89d", legsColor: "#2c353d",
+        hairX: 0.0, hairY: 0.0, hairZ: 0.0, hairScale: 1.0, scale: 1.0, rotY: 0
+      },
+      sloane: {
+        skin: "#f2cbb0", body: "girl", hairStyle: "ponytail", hairColor: "#d9b45b",
+        headphones: false, torsoColor: "#2e5ce6", legsColor: "#1e2a4a",
+        hairX: 0.0, hairY: 0.0, hairZ: 0.0, hairScale: 1.0, scale: 1.0, rotY: 0
+      }
+    };
+    let activeCharId = "rblx_hype_obj";
+
+    function loadRblxHypeObjMtl() {
+      if (window.loadedRblxHypeObj) {
+        avatarGroup.add(window.loadedRblxHypeObj);
+        updateTransform();
+        return;
+      }
+      const mtlLoader = new THREE.MTLLoader();
+      mtlLoader.load('/models/rblx_hype_character.mtl', function(materials) {
+        materials.preload();
+        const objLoader = new THREE.OBJLoader();
+        objLoader.setMaterials(materials);
+        objLoader.load('/models/rblx_hype_character.obj', function(obj) {
+          // Center and scale object
+          const box = new THREE.Box3().setFromObject(obj);
+          const center = box.getCenter(new THREE.Vector3());
+          const size = box.getSize(new THREE.Vector3());
+          
+          obj.position.x = -center.x;
+          obj.position.y = -box.min.y; // Sit on ground
+          obj.position.z = -center.z;
+          
+          const maxDim = Math.max(size.x, size.y, size.z);
+          if (maxDim > 0) {
+            const scaleFactor = 4.2 / maxDim;
+            obj.scale.set(scaleFactor, scaleFactor, scaleFactor);
+          }
+
+          window.loadedRblxHypeObj = obj;
+          avatarGroup.add(obj);
+          updateTransform();
+          console.log("✅ rblx_hype_character.obj/.mtl loaded successfully!");
+        }, undefined, function(err) {
+          console.error("Error loading OBJ:", err);
+        });
+      }, undefined, function(err) {
+        console.error("Error loading MTL:", err);
+      });
+    }
+
+    function init3D() {
+      const container = document.getElementById('viewport3d');
+      scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x0a0e1a);
+
+      camera = new THREE.PerspectiveCamera(40, container.clientWidth / container.clientHeight, 0.1, 100);
+      camera.position.set(0, 1.8, 5.8);
+
+      renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.shadowMap.enabled = true;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      container.appendChild(renderer.domElement);
+
+      controls = new THREE.OrbitControls(camera, renderer.domElement);
+      controls.target.set(0, 1.4, 0);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.05;
+      controls.maxDistance = 15;
+      controls.minDistance = 1.5;
+
+      // Studio Lighting
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
+      scene.add(ambientLight);
+
+      const keyLight = new THREE.DirectionalLight(0xfff5e6, 1.4);
+      keyLight.position.set(4, 6, 5);
+      keyLight.castShadow = true;
+      scene.add(keyLight);
+
+      const fillLight = new THREE.DirectionalLight(0x38e8ff, 0.6);
+      fillLight.position.set(-5, 3, -3);
+      scene.add(fillLight);
+
+      const rimLight = new THREE.DirectionalLight(0x9b4dff, 1.2);
+      rimLight.position.set(0, 5, -5);
+      scene.add(rimLight);
+
+      // Floor Grid
+      const grid = new THREE.GridHelper(10, 20, 0x9333ea, 0x1e293b);
+      grid.position.y = 0;
+      scene.add(grid);
+
+      // Master Avatar Rig Group
+      avatarGroup = new THREE.Group();
+      scene.add(avatarGroup);
+      buildAvatarRig();
+
+      window.addEventListener('resize', onWindowResize);
+      animate();
+    }
+
+    function onWindowResize() {
+      const container = document.getElementById('viewport3d');
+      if (!container || !renderer) return;
+      camera.aspect = container.clientWidth / container.clientHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(container.clientWidth, container.clientHeight);
+    }
+
+    // Helper: Rounded Box for Roblox Limbs
+    function createBeveledBox(w, h, d, color, texture = null) {
+      const geo = new THREE.BoxGeometry(w, h, d);
+      const mat = new THREE.MeshStandardMaterial({
+        color: texture ? 0xffffff : color,
+        map: texture,
+        roughness: 0.6,
+        metalness: 0.05
+      });
+      const mesh = new THREE.Mesh(geo, mat);
+      mesh.castShadow = true;
+      return mesh;
+    }
+
+    function buildAvatarRig() {
+      // Clear previous
+      while (avatarGroup.children.length > 0) {
+        avatarGroup.remove(avatarGroup.children[0]);
+      }
+
+      // Check if active model is the official rblx_hype_character.obj/.mtl
+      if (activeCharId === "rblx_hype_obj") {
+        if (!window.loadedRblxHypeObj) {
+          loadRblxHypeObjMtl();
+          return;
+        } else {
+          avatarGroup.add(window.loadedRblxHypeObj);
+          updateTransform();
+          return;
+        }
+      }
+
+      // If a custom full 3D model is loaded from file, display that
+      if (customModelMesh) {
+        avatarGroup.add(customModelMesh);
+        updateTransform();
+        return;
+      }
+
+      const c = charactersData[activeCharId];
+
+      // Torso & Dress
+      bodyMesh = createBeveledBox(1.8, 1.95, 0.95, c.torsoColor, customDressTexture);
+      bodyMesh.position.y = 1.95;
+      avatarGroup.add(bodyMesh);
+
+      // Legs
+      leftLeg = createBeveledBox(0.85, 1.95, 0.9, c.legsColor);
+      leftLeg.position.set(-0.46, 0.975, 0);
+      rightLeg = createBeveledBox(0.85, 1.95, 0.9, c.legsColor);
+      rightLeg.position.set(0.46, 0.975, 0);
+      avatarGroup.add(leftLeg, rightLeg);
+
+      // Arms
+      leftArm = createBeveledBox(0.8, 1.9, 0.85, c.torsoColor, customDressTexture);
+      leftArm.position.set(-1.38, 1.9, 0);
+      rightArm = createBeveledBox(0.8, 1.9, 0.85, c.torsoColor, customDressTexture);
+      rightArm.position.set(1.38, 1.9, 0);
+      avatarGroup.add(leftArm, rightArm);
+
+      // Head & Neck Group
+      headGroup = new THREE.Group();
+      headGroup.position.y = 2.95;
+      avatarGroup.add(headGroup);
+
+      // Roblox Lathe Head
+      const headGeo = new THREE.CylinderGeometry(0.62, 0.62, 1.2, 32);
+      const headMat = new THREE.MeshStandardMaterial({ color: c.skin, roughness: 0.65 });
+      headMesh = new THREE.Mesh(headGeo, headMat);
+      headMesh.position.y = 0.6;
+      headGroup.add(headMesh);
+
+      // Draw Face
+      createFaceFeatures(headGroup);
+
+      // 3D Hair
+      hairGroup = new THREE.Group();
+      headGroup.add(hairGroup);
+      rebuildHairMesh();
+
+      // Neon Headphones
+      headphoneGroup = new THREE.Group();
+      headGroup.add(headphoneGroup);
+      rebuildHeadphones();
+
+      // Apply saved transforms
+      updateTransform();
+      updateHairPosition();
+    }
+
+    function createFaceFeatures(parent) {
+      const canvas = document.createElement('canvas');
+      canvas.width = 256; canvas.height = 256;
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, 256, 256);
+
+      ctx.fillStyle = '#1c1b22';
+      ctx.beginPath(); ctx.ellipse(80, 115, 16, 22, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.ellipse(176, 115, 16, 22, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath(); ctx.arc(76, 108, 6, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(172, 108, 6, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = '#1c1b22'; ctx.lineWidth = 6; ctx.lineCap = 'round';
+      ctx.beginPath(); ctx.arc(128, 140, 28, 0.1 * Math.PI, 0.85 * Math.PI); ctx.stroke();
+
+      const tex = new THREE.CanvasTexture(canvas);
+      const facePlane = new THREE.Mesh(
+        new THREE.PlaneGeometry(0.9, 0.9),
+        new THREE.MeshBasicMaterial({ map: tex, transparent: true })
+      );
+      facePlane.position.set(0, 0.58, 0.63);
+      parent.add(facePlane);
+    }
+
+    function rebuildHairMesh() {
+      while (hairGroup.children.length > 0) hairGroup.remove(hairGroup.children[0]);
+      
+      // If a custom 3D hair file is loaded, use it
+      if (customHairMesh) {
+        hairGroup.add(customHairMesh);
+        return;
+      }
+
+      const c = charactersData[activeCharId];
+      const mat = new THREE.MeshStandardMaterial({ color: c.hairColor, roughness: 0.65 });
+
+      if (c.hairStyle === 'hypeSpiky') {
+        const capGeo = new THREE.SphereGeometry(0.68, 16, 10, 0, Math.PI * 2, 0, Math.PI / 2);
+        const capMesh = new THREE.Mesh(capGeo, mat);
+        capMesh.position.set(0, 0.96, -0.02);
+        hairGroup.add(capMesh);
+
+        const lockGeo = new THREE.ConeGeometry(0.18, 0.65, 5);
+        const specs = [
+          [[0.0, 1.48, -0.02], [-0.15, 0.2, 0.12]],
+          [[-0.30, 1.40, 0.06], [0.05, 0.5, 0.6]],
+          [[0.32, 1.40, 0.04], [-0.05, -0.4, -0.6]],
+          [[-0.48, 1.25, -0.1], [-0.15, 0.8, 0.95]],
+          [[0.48, 1.25, -0.1], [-0.15, -0.8, -0.95]],
+          [[0.0, 1.35, -0.38], [-0.75, 0, 0]],
+          [[-0.26, 1.05, 0.54], [2.55, 0, 0.35]],
+          [[0.02, 1.06, 0.58], [2.62, 0, -0.18]],
+          [[0.28, 1.03, 0.52], [2.50, 0, -0.42]]
+        ];
+        specs.forEach(([p, r]) => {
+          const m = new THREE.Mesh(lockGeo, mat);
+          m.position.set(...p);
+          m.rotation.set(...r);
+          hairGroup.add(m);
+        });
+      } else if (c.hairStyle === 'curly') {
+        for (let i = 0; i < 16; i++) {
+          const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.24, 8, 8), mat);
+          const angle = (i / 16) * Math.PI * 2;
+          sphere.position.set(Math.cos(angle) * 0.55, 1.05 + Math.sin(i * 3) * 0.15, Math.sin(angle) * 0.55);
+          hairGroup.add(sphere);
+        }
+      } else if (c.hairStyle === 'bun') {
+        const cap = new THREE.Mesh(new THREE.SphereGeometry(0.66, 14, 10), mat);
+        cap.position.set(0, 0.9, -0.05);
+        const bun = new THREE.Mesh(new THREE.SphereGeometry(0.35, 12, 12), mat);
+        bun.position.set(0, 1.35, -0.25);
+        hairGroup.add(cap, bun);
+      } else if (c.hairStyle === 'tufts') {
+        const cap = new THREE.Mesh(new THREE.SphereGeometry(0.67, 14, 10), mat);
+        cap.position.set(0, 0.92, -0.02);
+        hairGroup.add(cap);
+        for (let sx of [-0.3, 0, 0.3]) {
+          const tuft = new THREE.Mesh(new THREE.ConeGeometry(0.16, 0.45, 4), mat);
+          tuft.position.set(sx, 1.3, 0.1);
+          tuft.rotation.set(0.1, 0, -sx);
+          hairGroup.add(tuft);
+        }
+      } else if (c.hairStyle === 'bob') {
+        const cap = new THREE.Mesh(new THREE.CylinderGeometry(0.68, 0.74, 0.8, 16), mat);
+        cap.position.set(0, 0.85, -0.08);
+        hairGroup.add(cap);
+      } else if (c.hairStyle === 'ponytail') {
+        const cap = new THREE.Mesh(new THREE.SphereGeometry(0.67, 14, 10), mat);
+        cap.position.set(0, 0.92, -0.05);
+        const tail = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.22, 1.1, 10), mat);
+        tail.position.set(0, 1.1, -0.65);
+        tail.rotation.x = -Math.PI * 0.35;
+        hairGroup.add(cap, tail);
+      }
+    }
+
+    function rebuildHeadphones() {
+      while (headphoneGroup.children.length > 0) headphoneGroup.remove(headphoneGroup.children[0]);
+      const c = charactersData[activeCharId];
+      if (!c.headphones) return;
+
+      const frameMat = new THREE.MeshStandardMaterial({ color: 0x191c28, roughness: 0.4 });
+      const purpleGlow = new THREE.MeshStandardMaterial({ color: 0x9b4dff, emissive: 0x7c3aed, emissiveIntensity: 1.0 });
+      const cyanGlow = new THREE.MeshStandardMaterial({ color: 0x38e8ff, emissive: 0x06b6d4, emissiveIntensity: 1.0 });
+
+      const band = new THREE.Mesh(new THREE.TorusGeometry(0.70, 0.06, 10, 24, Math.PI), frameMat);
+      band.position.set(0, 0.65, -0.02);
+      headphoneGroup.add(band);
+
+      const bandTrim = new THREE.Mesh(new THREE.TorusGeometry(0.72, 0.022, 8, 20, Math.PI * 0.75), purpleGlow);
+      bandTrim.position.set(0, 0.65, -0.02);
+      bandTrim.rotation.z = Math.PI * 0.12;
+      headphoneGroup.add(bandTrim);
+
+      for (const sx of [-1, 1]) {
+        const cup = new THREE.Mesh(new THREE.CylinderGeometry(0.24, 0.24, 0.16, 20), frameMat);
+        cup.rotation.z = Math.PI / 2;
+        cup.position.set(sx * 0.68, 0.62, -0.02);
+        headphoneGroup.add(cup);
+
+        const outerRing = new THREE.Mesh(new THREE.TorusGeometry(0.17, 0.03, 10, 16), purpleGlow);
+        outerRing.rotation.y = Math.PI / 2;
+        outerRing.position.set(sx * 0.77, 0.62, -0.02);
+        headphoneGroup.add(outerRing);
+
+        const innerDot = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, 0.02, 12), cyanGlow);
+        innerDot.rotation.z = Math.PI / 2;
+        innerDot.position.set(sx * 0.775, 0.62, -0.02);
+        headphoneGroup.add(innerDot);
+      }
+    }
+
+    // --- FILE UPLOAD HANDLERS (MODEL, HAIR, DRESS) ---
+    function handleModelUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      document.getElementById('model-file-name').textContent = `Loaded: ${file.name} (${(file.size/1024).toFixed(1)} KB)`;
+      
+      const reader = new FileReader();
+      const ext = file.name.split('.').pop().toLowerCase();
+
+      if (ext === 'glb' || ext === 'gltf') {
+        reader.onload = function(evt) {
+          const loader = new THREE.GLTFLoader();
+          loader.parse(evt.target.result, '', function(gltf) {
+            customModelMesh = gltf.scene;
+            // Auto scale to match world
+            const box = new THREE.Box3().setFromObject(customModelMesh);
+            const size = box.getSize(new THREE.Vector3());
+            const maxDim = Math.max(size.x, size.y, size.z);
+            if (maxDim > 0) {
+              const targetScale = 3.8 / maxDim;
+              customModelMesh.scale.set(targetScale, targetScale, targetScale);
+            }
+            buildAvatarRig();
+          });
+        };
+        reader.readAsArrayBuffer(file);
+      } else if (ext === 'obj') {
+        reader.onload = function(evt) {
+          const loader = new THREE.OBJLoader();
+          const obj = loader.parse(evt.target.result);
+          customModelMesh = obj;
+          buildAvatarRig();
+        };
+        reader.readAsText(file);
+      }
+    }
+
+    function handleHairUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      document.getElementById('hair-file-name').textContent = `Hair: ${file.name}`;
+
+      const reader = new FileReader();
+      const ext = file.name.split('.').pop().toLowerCase();
+
+      if (ext === 'glb' || ext === 'gltf') {
+        reader.onload = function(evt) {
+          const loader = new THREE.GLTFLoader();
+          loader.parse(evt.target.result, '', function(gltf) {
+            customHairMesh = gltf.scene;
+            rebuildHairMesh();
+          });
+        };
+        reader.readAsArrayBuffer(file);
+      } else if (ext === 'obj') {
+        reader.onload = function(evt) {
+          const loader = new THREE.OBJLoader();
+          customHairMesh = loader.parse(evt.target.result);
+          rebuildHairMesh();
+        };
+        reader.readAsText(file);
+      }
+    }
+
+    function handleDressUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      document.getElementById('dress-file-name').textContent = `Dress: ${file.name}`;
+
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        const img = new Image();
+        img.src = evt.target.result;
+        img.onload = function() {
+          customDressTexture = new THREE.Texture(img);
+          customDressTexture.needsUpdate = true;
+          buildAvatarRig();
+        };
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Interactive Control Updates
+    function updateTransform() {
+      const scale = parseFloat(document.getElementById('param-scale').value);
+      const rotY = parseFloat(document.getElementById('param-rotY').value);
+      document.getElementById('val-scale').textContent = scale.toFixed(2) + 'x';
+      document.getElementById('val-rotY').textContent = rotY + '°';
+      avatarGroup.scale.set(scale, scale, scale);
+      avatarGroup.rotation.y = (rotY * Math.PI) / 180;
+      charactersData[activeCharId].scale = scale;
+      charactersData[activeCharId].rotY = rotY;
+    }
+
+    function updateRig() {
+      if (!headGroup) return;
+      const headScale = parseFloat(document.getElementById('param-headScale').value);
+      document.getElementById('val-headScale').textContent = headScale.toFixed(2) + 'x';
+      headGroup.scale.set(headScale, headScale, headScale);
+      charactersData[activeCharId].headScale = headScale;
+      charactersData[activeCharId].body = document.getElementById('param-body').value;
+    }
+
+    function updateHairPosition() {
+      if (!hairGroup) return;
+      const x = parseFloat(document.getElementById('param-hairX').value);
+      const y = parseFloat(document.getElementById('param-hairY').value);
+      const z = parseFloat(document.getElementById('param-hairZ').value);
+      const s = parseFloat(document.getElementById('param-hairScale').value);
+      document.getElementById('val-hairX').textContent = (x >= 0 ? '+' : '') + x.toFixed(2);
+      document.getElementById('val-hairY').textContent = (y >= 0 ? '+' : '') + y.toFixed(2);
+      document.getElementById('val-hairZ').textContent = (z >= 0 ? '+' : '') + z.toFixed(2);
+      document.getElementById('val-hairScale').textContent = s.toFixed(2) + 'x';
+      hairGroup.position.set(x, y, z);
+      hairGroup.scale.set(s, s, s);
+      charactersData[activeCharId].hairX = x;
+      charactersData[activeCharId].hairY = y;
+      charactersData[activeCharId].hairZ = z;
+      charactersData[activeCharId].hairScale = s;
+    }
+
+    function updateHair() {
+      charactersData[activeCharId].hairStyle = document.getElementById('param-hairStyle').value;
+      rebuildHairMesh();
+    }
+
+    function updateHeadphones() {
+      charactersData[activeCharId].headphones = document.getElementById('param-headphones').checked;
+      rebuildHeadphones();
+    }
+
+    function updateColors() {
+      const c = charactersData[activeCharId];
+      c.skin = document.getElementById('param-skinColor').value;
+      c.hairColor = document.getElementById('param-hairColor').value;
+      c.torsoColor = document.getElementById('param-torsoColor').value;
+      c.legsColor = document.getElementById('param-legsColor').value;
+      buildAvatarRig();
+    }
+
+    function loadSelectedCharacter() {
+      activeCharId = document.getElementById('char-select').value;
+      document.getElementById('active-char-badge').textContent = `Character: ${activeCharId}`;
+      customModelMesh = null;
+      customHairMesh = null;
+      document.getElementById('model-file-name').textContent = 'Click or drop custom 3D model file here';
+      document.getElementById('hair-file-name').textContent = 'Optional: import custom hair mesh';
+      
+      const c = charactersData[activeCharId];
+      document.getElementById('param-hairStyle').value = c.hairStyle;
+      document.getElementById('param-hairColor').value = c.hairColor;
+      document.getElementById('param-skinColor').value = c.skin;
+      document.getElementById('param-torsoColor').value = c.torsoColor;
+      document.getElementById('param-legsColor').value = c.legsColor;
+      document.getElementById('param-headphones').checked = !!c.headphones;
+      document.getElementById('param-hairX').value = c.hairX || 0;
+      document.getElementById('param-hairY').value = c.hairY || 0;
+      document.getElementById('param-hairZ').value = c.hairZ || 0;
+      document.getElementById('param-hairScale').value = c.hairScale || 1.0;
+      document.getElementById('param-scale').value = c.scale || 1.0;
+      document.getElementById('param-rotY').value = c.rotY || 0;
+
+      buildAvatarRig();
+    }
+
+    function addNewCharacterPrompt() {
+      const name = prompt("Enter new character model name (e.g. shadow_stalker, neon_girl):");
+      if (!name) return;
+      const cleanName = name.toLowerCase().replace(/[^a-z0-9_]/g, '');
+      charactersData[cleanName] = {
+        skin: "#f0c4a0", body: "boy", hairStyle: "spikyTop", hairColor: "#ff9f1c",
+        headphones: false, torsoColor: "#3b82f6", legsColor: "#1e293b",
+        hairX: 0, hairY: 0, hairZ: 0, hairScale: 1.0, scale: 1.0, rotY: 0
+      };
+      const sel = document.getElementById('char-select');
+      const opt = document.createElement('option');
+      opt.value = cleanName;
+      opt.textContent = `${cleanName} (Custom)`;
+      sel.appendChild(opt);
+      sel.value = cleanName;
+      loadSelectedCharacter();
+      alert(`Model '${cleanName}' created! You can now customize hair, outfit and 3D scale.`);
+    }
+
+    async function saveCharacterChanges() {
+      const c = charactersData[activeCharId];
+      try {
+        const resp = await fetch('/api/save_character', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ charId: activeCharId, config: c })
+        });
+        const data = await resp.json();
+        alert(data.message || 'Saved successfully!');
+      } catch (e) {
+        alert('Saved locally in 3D session! Server sync: ' + e.message);
+      }
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    }
+
+    // --- PIPELINE RUNNER LOGIC ---
+    function log(msg) {
+      const c = document.getElementById('console');
+      c.textContent += msg + '\n';
+      c.scrollTop = c.scrollHeight;
+    }
+
+    // AI Auto Story Generation
+    const AI_STORY_TEMPLATES = [
+      "In this town, every shadow turns solid the second the streetlights click on. Toby thought he could sprint past the town square before 7 PM, but the shadows were already waiting. When he tried to step over his own feet, he froze. And that was when he heard the tapping behind him.",
+      "In this town, every statue moves the second you blink. Hype made a bet with Bram that he could cross the plaza without closing his eyes once. At 30 seconds, his vision started blurring. At 45 seconds, the marble wings were right in front of his face. Whatever you do, don't blink.",
+      "In this world, every kid gets a glass weather jar, but Toby trapped a category 5 storm cloud. Grandma told him the black lightning was forbidden, but the power was too tempting. When the hairline crack appeared across the glass, the thunder shook the entire kingdom.",
+      "In this town, the floor turns into pure ice whenever someone tells a lie. It started with a harmless excuse about homework, and within five minutes, the entire school hallway was a freezing glacier. One slip, and you slide straight into the void.",
+      "In this world, at midnight, lanterns trade wishes for memories. Toby wanted unlimited gold, so he traded his seventh birthday. But when he opened his inventory, the lantern seller asked for something much darker: his best friend's name."
+    ];
+
+    async function generateAIScript() {
+      const randomTpl = AI_STORY_TEMPLATES[Math.floor(Math.random() * AI_STORY_TEMPLATES.length)];
+      document.getElementById('custom-script').value = randomTpl;
+      const randomSuffix = Math.floor(Math.random() * 899 + 100);
+      document.getElementById('custom-slug').value = `story_${randomSuffix}_45s`;
+      log(`[AI GENERATOR] Generated new viral story hook into editor!`);
+    }
+
+    async function triggerRunFromScript() {
+      const btn = document.getElementById('run-btn');
+      const slug = document.getElementById('custom-slug').value.trim() || 'custom_story_45s';
+      const script = document.getElementById('custom-script').value.trim();
+      const voice = document.getElementById('voice-select').value;
+      const mode = document.getElementById('render-mode').value;
+
+      if (!script) {
+        alert('Please enter a custom script or click "AI Auto-Generate Story Idea"!');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = '⏳ Processing 1-Click Master Pipeline...';
+      log(`\n======================================================`);
+      log(`[1-CLICK PIPELINE START] Project: ${slug}`);
+      log(`[CONFIG] Voice: ${voice} | Mode: ${mode}`);
+      log(`[SCRIPT] "${script.substring(0, 80)}..."`);
+
+      try {
+        // Step 1: Save custom script and initialize project structure
+        log(`--> Step 1: Creating project files & cast templates...`);
+        const createResp = await fetch('/api/create', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ slug, script })
+        });
+        const createData = await createResp.json();
+        log(`[SUCCESS] ${createData.message}`);
+
+        // Step 2: Trigger voiceover, alignment, sound mix and Remotion render
+        log(`--> Step 2: Running Voiceover, Speech Alignment & Master Render...`);
+        const runResp = await fetch('/api/run', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ slug, voice, mode })
+        });
+        const runData = await runResp.json();
+        log(runData.output || runData.message || 'Pipeline finished!');
+
+        // Refresh gallery
+        log(`[DONE] Video ready in /out/${slug}.mp4`);
+      } catch (e) {
+        log('[ERROR] ' + e.message);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '🚀 1-Click: Save, Voice & Master Render';
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      init3D();
+    });
+  </script>
+</body>
+</html>

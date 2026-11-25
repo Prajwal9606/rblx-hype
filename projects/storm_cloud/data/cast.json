@@ -1,0 +1,15 @@
+{
+  "hypeHero": {
+    "skin": "#f0c098",
+    "body": "blocky",
+    "faceStyle": "roblox",
+    "faceFile": "awesome_face.png",
+    "hair": { "style": "hypeSpiky", "color": "#181b24" },
+    "headphones": { "color": "#1d202b", "glow": "#a838ff" },
+    "outfit": {
+      "torso": { "kind": "cyberHoodie", "color": "#14151e", "accent": "#a838ff", "trim": "#7c2ae8" },
+      "sleeves": { "color": "#14151e", "cuff": "#7c2ae8", "accent": "#a838ff", "gloves": "#1c1d26" },
+      "legs": { "color": "#1a1c26", "shoes": "#14151e", "shoeAccent": "#8b3dff" }
+    }
+  }
+}

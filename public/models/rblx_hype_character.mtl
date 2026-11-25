@@ -1,0 +1,42 @@
+# RBLX HYPE Character Materials
+newmtl Skin
+Kd 0.902 0.702 0.541
+Ks 0.1 0.1 0.1
+Ns 30
+
+newmtl Hair_Black
+Kd 0.110 0.118 0.149
+Ks 0.15 0.15 0.15
+Ns 40
+
+newmtl Hoodie_Charcoal
+Kd 0.135 0.145 0.195
+Ks 0.1 0.1 0.1
+Ns 25
+
+newmtl Neon_Purple
+Kd 0.608 0.302 1.000
+Ke 0.35 0.12 0.65
+Ks 0.4 0.4 0.4
+Ns 80
+
+newmtl Neon_Cyan
+Kd 0.220 0.910 1.000
+Ke 0.15 0.55 0.65
+Ks 0.4 0.4 0.4
+Ns 80
+
+newmtl Pants_Charcoal
+Kd 0.169 0.180 0.227
+Ks 0.08 0.08 0.08
+Ns 20
+
+newmtl Shoes_Purple
+Kd 0.435 0.220 0.773
+Ks 0.2 0.2 0.2
+Ns 40
+
+newmtl Headphones_Dark
+Kd 0.098 0.110 0.157
+Ks 0.3 0.3 0.3
+Ns 60

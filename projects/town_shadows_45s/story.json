@@ -1,0 +1,1775 @@
+{
+  "audio": "audio/town_shadows_45s.wav",
+  "names": [
+    "Hype",
+    "Dax",
+    "Chalk",
+    "Otis",
+    "Grandpa"
+  ],
+  "sfx": [
+    "CLANK"
+  ],
+  "endHoldFrames": 24,
+  "shots": [
+    {
+      "id": "01_lamps_click",
+      "cue": 0,
+      "set": "fireStreet",
+      "look": "DUSK_MAGENTA",
+      "actors": [
+        {
+          "character": "hype",
+          "pos": [
+            0,
+            -2
+          ],
+          "contactShadow": 0.7,
+          "yaw": 0,
+          "faces": [
+            {
+              "f": 0,
+              "v": "neutralTalk"
+            },
+            {
+              "f": 14,
+              "v": "hollowShock"
+            }
+          ],
+          "clips": [
+            {
+              "clip": "talkBounce",
+              "at": 0
+            }
+          ],
+          "talk": true
+        }
+      ],
+      "camera": {
+        "fov": 45,
+        "keys": [
+          {
+            "u": 0,
+            "pos": [
+              0,
+              4.65,
+              10.0
+            ],
+            "target": [
+              0,
+              4.5,
+              -2
+            ]
+          },
+          {
+            "u": 0.35,
+            "pos": [
+              0,
+              4.55,
+              7.199999999999999
+            ],
+            "target": [
+              0,
+              4.5,
+              -2
+            ],
+            "ease": "easeOutCubic"
+          },
+          {
+            "u": 1,
+            "pos": [
+              0,
+              4.55,
+              6.648
+            ],
+            "target": [
+              0,
+              4.5,
+              -2
+            ],
+            "ease": "linear"
+          }
+        ]
+      },
+      "motionBlur": "auto",
+      "setParams": {
+        "flames": true
+      },
+      "shadow": {
+        "focus": [
+          0,
+          2,
+          -6
+        ],
+        "extent": 38
+      },
+      "vfx": [
+        {
+          "type": "props",
+          "items": [
+            {
+              "shape": "box",
+              "pos": [
+                0,
+                0.2,
+                -4.0
+              ],
+              "size": [
+                1.8,
+                0.35,
+                3.0
+              ],
+              "color": "#10121a"
+            }
+          ]
+        }
+      ],
+      "sound": "hit",
+      "sfx": [
+        {
+          "type": "click",
+          "at": 10
+        }
+      ]
+    },
+    {
+      "id": "02_baker_ramp",
+      "cue": 13,
+      "set": "fireStreet",
+      "look": "DUSK_MAGENTA",
+      "actors": [
+        {
+          "character": "clara",
+          "pos": [
+            -2.5,
+            -4
+          ],
+          "contactShadow": 0.7,
+          "to": [
+            1.5,
+            -4
+          ],
+          "faces": [
+            {
+              "f": 0,
+              "v": "bigHappy"
+            }
+          ],
+          "clips": [
+            {
+              "clip": "walk",
+              "at": -100
+            },
+            {
+              "clip": "reachForward",
+              "at": 0
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fov": 48,
+        "keys": [
+          {
+            "u": 0,
+            "pos": [
+              -2.0,
+              4.0,
+              6.0
+            ],
+            "target": [
+              -2.5,
+              4.1,
+              -4
+            ]
+          },
+          {
+            "u": 1,
+            "pos": [
+              1.85,
+              3.8,
+              4.5
+            ],
+            "target": [
+              1.5,
+              4.1,
+              -4
+            ],
+            "ease": "linear"
+          }
+        ],
+        "shake": [
+          {
+            "f0": 0,
+            "f1": 90,
+            "ampDeg": [
+              0.08,
+              0.14
+            ],
+            "mode": "random"
+          }
+        ]
+      },
+      "motionBlur": "auto",
+      "setParams": {
+        "flames": true
+      },
+      "shadow": {
+        "focus": [
+          0,
+          2,
+          -6
+        ],
+        "extent": 38
+      },
+      "vfx": [
+        {
+          "type": "props",
+          "items": [
+            {
+              "shape": "box",
+              "pos": [
+                0.5,
+                0.7,
+                -4.0
+              ],
+              "size": [
+                5.5,
+                0.3,
+                1.8
+              ],
+              "color": "#11131c",
+              "rotZ": 0.22
+            },
+            {
+              "shape": "box",
+              "pos": [
+                -0.5,
+                1.6,
+                -4.0
+              ],
+              "size": [
+                1.5,
+                1.0,
+                1.1
+              ],
+              "color": "#b57c42"
+            }
+          ]
+        }
+      ],
+      "sfx": [
+        {
+          "type": "pop_soft_in",
+          "at": 0
+        }
+      ]
+    },
+    {
+      "id": "03_kids_bounce",
+      "cue": 21,
+      "set": "fireStreet",
+      "look": "DUSK_MAGENTA",
+      "actors": [
+        {
+          "character": "toby",
+          "pos": [
+            1.0,
+            -4
+          ],
+          "contactShadow": 0.7,
+          "yaw": 0,
+          "faces": [
+            {
+              "f": 0,
+              "v": "laugh"
+            }
+          ],
+          "clips": [
+            {
+              "clip": "shockJump",
+              "at": 2
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fov": 47,
+        "keys": [
+          {
+            "f": -1,
+            "pos": [
+              1.0,
+              4.45,
+              6.0
+            ],
+            "target": [
+              -7.5,
+              4.3,
+              -4
+            ]
+          },
+          {
+            "f": 4,
+            "pos": [
+              1.0,
+              4.45,
+              6.0
+            ],
+            "target": [
+              1.0,
+              4.3,
+              -4
+            ],
+            "ease": "easeOutCubic"
+          },
+          {
+            "u": 1,
+            "pos": [
+              1.0,
+              4.3999999999999995,
+              4.6
+            ],
+            "target": [
+              1.0,
+              4.3,
+              -4
+            ],
+            "ease": "linear"
+          }
+        ]
+      },
+      "motionBlur": "auto",
+      "setParams": {
+        "flames": true
+      },
+      "shadow": {
+        "focus": [
+          0,
+          2,
+          -6
+        ],
+        "extent": 38
+      },
+      "vfx": [
+        {
+          "type": "props",
+          "items": [
+            {
+              "shape": "box",
+              "pos": [
+                3.0,
+                1.4,
+                -4.0
+              ],
+              "size": [
+                0.9,
+                2.8,
+                0.9
+              ],
+              "color": "#3366aa"
+            },
+            {
+              "shape": "box",
+              "pos": [
+                1.0,
+                0.25,
+                -4.0
+              ],
+              "size": [
+                2.2,
+                0.4,
+                2.2
+              ],
+              "color": "#10121a"
+            }
+          ]
+        }
+      ],
+      "sfx": [
+        {
+          "type": "pop_b",
+          "at": 2
+        }
+      ]
+    },
+    {
+      "id": "04_one_rule",
+      "cue": 26,
+      "set": "tabletPlaza",
+      "look": "DUSK_MAGENTA",
+      "actors": [
+        {
+          "character": "hype",
+          "pos": [
+            0,
+            -2
+          ],
+          "contactShadow": 0.7,
+          "yaw": 0,
+          "faces": [
+            {
+              "f": 0,
+              "v": "angryTalk"
+            },
+            {
+              "f": 12,
+              "v": "worried"
+            }
+          ],
+          "clips": [
+            {
+              "clip": "dramaticPoint",
+              "at": 3
+            }
+          ],
+          "talk": true
+        }
+      ],
+      "camera": {
+        "fov": 48,
+        "keys": [
+          {
+            "u": 0,
+            "pos": [
+              1.2,
+              2.2,
+              7.800000000000001
+            ],
+            "target": [
+              0,
+              4.5,
+              -2
+            ]
+          },
+          {
+            "u": 1,
+            "pos": [
+              0.6,
+              2.0,
+              6.036
+            ],
+            "target": [
+              0,
+              4.6,
+              -2
+            ],
+            "ease": "easeOutQuad"
+          }
+        ]
+      },
+      "motionBlur": "auto",
+      "shadow": {
+        "focus": [
+          0,
+          2,
+          -8
+        ],
+        "extent": 40
+      },
+      "vfx": [
+        {
+          "type": "props",
+          "items": [
+            {
+              "shape": "box",
+              "pos": [
+                0,
+                6.0,
+                -9.0
+              ],
+              "size": [
+                22.0,
+                12.0,
+                1.4
+              ],
+              "color": "#090a10"
+            }
+          ]
+        }
+      ],
+      "sound": "hit",
+      "sfx": [
+        {
+          "type": "riser",
+          "at": 0,
+          "lead": 1.0
+        }
+      ]
+    },
+    {
+      "id": "05_hype_chalk",
+      "cue": 38,
+      "set": "fireStreet",
+      "look": "DAY_SUN",
+      "actors": [
+        {
+          "character": "hype",
+          "pos": [
+            -1.5,
+            -3
+          ],
+          "contactShadow": 0.7,
+          "yaw": 30,
+          "faces": [
+            {
+              "f": 0,
+              "v": "worried"
+            },
+            {
+              "f": 12,
+              "v": "deadpan"
+            }
+          ],
+          "clips": [
+            {
+              "clip": "talkBounce",
+              "at": 0
+            }
+          ],
+          "talk": true
+        },
+        {
+          "character": "dax",
+          "pos": [
+            1.6,
+            -3
+          ],
+          "contactShadow": 0.7,
+          "yaw": -35,
+          "faces": [
+            {
+              "f": 0,
+              "v": "laugh"
+            }
+          ],
+          "clips": [
+            {
+              "clip": "dramaticPoint",
+              "at": 10
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fov": 43,
+        "keys": [
+          {
+            "u": 0,
+            "pos": [
+              4.0,
+              4.5,
+              1.8
+            ],
+            "target": [
+              -1.5,
+              4.4,
+              -3
+            ]
+          },
+          {
+            "u": 1,
+            "pos": [
+              3.6,
+              4.5,
+              0.9
+            ],
+            "target": [
+              -1.5,
+              4.4,
+              -3
+            ],
+            "ease": "linear"
+          }
+        ]
+      },
+      "motionBlur": "auto",
+      "setParams": {
+        "flames": false,
+        "bowls": null
+      },
+      "lookOverrides": {
+        "fog": {
+          "color": "#c4d2ec",
+          "density": 0.0024
+        }
+      },
+      "shadow": {
+        "focus": [
+          0,
+          2,
+          -6
+        ],
+        "extent": 36
+      },
+      "vfx": [
+        {
+          "type": "props",
+          "items": [
+            {
+              "shape": "box",
+              "pos": [
+                -1.5,
+                0.05,
+                -4.2
+              ],
+              "size": [
+                1.0,
+                0.05,
+                2.4
+              ],
+              "color": "#9ca3b5"
+            }
+          ]
+        }
+      ],
+      "sfx": [
+        {
+          "type": "pop_c",
+          "at": 10
+        }
+      ]
+    },
+    {
+      "id": "06_grandpa",
+      "cue": 53,
+      "set": "kitchen",
+      "look": "INTERIOR_NEUTRAL",
+      "actors": [
+        {
+          "character": "otis",
+          "pos": [
+            -3.8,
+            -3.5
+          ],
+          "contactShadow": 0.7,
+          "yaw": 30,
+          "faces": [
+            {
+              "f": 0,
+              "v": "dotSmile"
+            },
+            {
+              "f": 12,
+              "v": "neutralTalk"
+            }
+          ],
+          "clips": [
+            {
+              "clip": "sitIdle",
+              "at": 0
+            },
+            {
+              "clip": "nodYes",
+              "at": 6
+            }
+          ],
+          "talk": true
+        },
+        {
+          "character": "hype",
+          "pos": [
+            -1.2,
+            -2.5
+          ],
+          "contactShadow": 0.7,
+          "yaw": -40,
+          "faces": [
+            {
+              "f": 0,
+              "v": "blank"
+            }
+          ],
+          "clips": [
+            {
+              "clip": "sitIdle",
+              "at": 0
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fov": 40,
+        "keys": [
+          {
+            "u": 0,
+            "pos": [
+              1.2,
+              4.5,
+              2.3
+            ],
+            "target": [
+              -3.8,
+              4.4,
+              -3.5
+            ]
+          },
+          {
+            "u": 1,
+            "pos": [
+              0.8,
+              4.5,
+              1.4
+            ],
+            "target": [
+              -3.8,
+              4.4,
+              -3.5
+            ],
+            "ease": "linear"
+          }
+        ]
+      },
+      "motionBlur": "auto",
+      "setParams": {
+        "chairs": []
+      },
+      "lookOverrides": {
+        "lights": {
+          "hemi": {
+            "sky": "#e6ddd2",
+            "ground": "#8a7a6a",
+            "intensity": 1.9
+          },
+          "key": {
+            "color": "#fff0dc",
+            "intensity": 1.8,
+            "from": [
+              0.5,
+              0.8,
+              0.7
+            ],
+            "shadow": true
+          }
+        }
+      },
+      "shadow": {
+        "focus": [
+          -4,
+          3,
+          -3
+        ],
+        "extent": 24
+      },
+      "sfx": [
+        {
+          "type": "pop_soft",
+          "at": 0
+        }
+      ]
+    },
+    {
+      "id": "07_power_blew",
+      "cue": 67,
+      "set": "tabletPlaza",
+      "look": "NIGHT_EMBER",
+      "actors": [],
+      "camera": {
+        "fov": 47,
+        "keys": [
+          {
+            "u": 0,
+            "pos": [
+              4.0,
+              2.65,
+              -2.8000000000000007
+            ],
+            "target": [
+              4.0,
+              2.5,
+              -11.8
+            ]
+          },
+          {
+            "u": 0.35,
+            "pos": [
+              4.0,
+              2.55,
+              -5.680000000000001
+            ],
+            "target": [
+              4.0,
+              2.5,
+              -11.8
+            ],
+            "ease": "easeOutCubic"
+          },
+          {
+            "u": 1,
+            "pos": [
+              4.0,
+              2.55,
+              -6.047200000000001
+            ],
+            "target": [
+              4.0,
+              2.5,
+              -11.8
+            ],
+            "ease": "linear"
+          }
+        ],
+        "shake": [
+          {
+            "f0": 0,
+            "f1": 12,
+            "ampDeg": [
+              0.55,
+              0.55
+            ],
+            "mode": "alt",
+            "decay": 0.74
+          }
+        ]
+      },
+      "motionBlur": "auto",
+      "lookOverrides": {
+        "fog": {
+          "color": "#141624",
+          "density": 0.004
+        }
+      },
+      "shadow": {
+        "focus": [
+          0,
+          2,
+          -10
+        ],
+        "extent": 48
+      },
+      "vfx": [
+        {
+          "type": "props",
+          "items": [
+            {
+              "shape": "box",
+              "pos": [
+                4.0,
+                2.2,
+                -12.2
+              ],
+              "size": [
+                1.8,
+                2.4,
+                1.0
+              ],
+              "color": "#3c4352"
+            },
+            {
+              "shape": "box",
+              "pos": [
+                4.0,
+                2.5,
+                -11.6
+              ],
+              "size": [
+                0.32,
+                0.9,
+                0.35
+              ],
+              "color": "#ff3344",
+              "glow": 0.85
+            }
+          ]
+        },
+        {
+          "type": "embers",
+          "count": 240,
+          "box": [
+            10,
+            8,
+            10
+          ],
+          "centre": [
+            4.0,
+            2.5,
+            -11.5
+          ],
+          "size": 0.28,
+          "gain": 2.4
+        }
+      ],
+      "sound": "hit",
+      "sfx": [
+        {
+          "type": "thunder",
+          "at": 0
+        }
+      ]
+    },
+    {
+      "id": "08_gate_slams",
+      "cue": 73,
+      "set": "tabletPlaza",
+      "look": "NIGHT_EMBER",
+      "actors": [
+        {
+          "character": "hype",
+          "pos": [
+            0,
+            2
+          ],
+          "contactShadow": 0.7,
+          "yaw": 180,
+          "faces": [
+            {
+              "f": 0,
+              "v": "hollowShock"
+            },
+            {
+              "f": 10,
+              "v": "scream"
+            }
+          ],
+          "clips": [
+            {
+              "clip": "shockJump",
+              "at": 2
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fov": 50,
+        "keys": [
+          {
+            "u": 0,
+            "pos": [
+              0,
+              13.5,
+              10.0
+            ],
+            "target": [
+              0,
+              2.0,
+              -4
+            ]
+          },
+          {
+            "u": 1,
+            "pos": [
+              0,
+              11.34,
+              7.479999999999999
+            ],
+            "target": [
+              0,
+              2.0,
+              -4
+            ],
+            "ease": "linear"
+          }
+        ]
+      },
+      "motionBlur": "auto",
+      "lookOverrides": {
+        "fog": {
+          "color": "#141624",
+          "density": 0.004
+        }
+      },
+      "shadow": {
+        "focus": [
+          0,
+          2,
+          -10
+        ],
+        "extent": 48
+      },
+      "vfx": [
+        {
+          "type": "props",
+          "items": [
+            {
+              "shape": "box",
+              "pos": [
+                0,
+                6.0,
+                -9.0
+              ],
+              "size": [
+                22.0,
+                12.0,
+                1.4
+              ],
+              "color": "#090a10"
+            }
+          ]
+        }
+      ],
+      "sound": "hit",
+      "sfx": [
+        {
+          "type": "thunder",
+          "at": 2
+        }
+      ]
+    },
+    {
+      "id": "09_dax_charge",
+      "cue": 85,
+      "set": "tabletPlaza",
+      "look": "NIGHT_EMBER",
+      "actors": [
+        {
+          "character": "dax",
+          "pos": [
+            0,
+            0
+          ],
+          "contactShadow": 0.7,
+          "to": [
+            0,
+            -7.2
+          ],
+          "faces": [
+            {
+              "f": 0,
+              "v": "grittedAngry"
+            },
+            {
+              "f": 14,
+              "v": "scream"
+            }
+          ],
+          "clips": [
+            {
+              "clip": "runLeaning",
+              "at": -100
+            },
+            {
+              "clip": "shockJump",
+              "at": 14
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fov": 48,
+        "keys": [
+          {
+            "u": 0,
+            "pos": [
+              4.0,
+              4.0,
+              7.5
+            ],
+            "target": [
+              0,
+              4.1,
+              0
+            ]
+          },
+          {
+            "u": 1,
+            "pos": [
+              2.8,
+              3.8,
+              -0.8250000000000002
+            ],
+            "target": [
+              0,
+              4.1,
+              -7.2
+            ],
+            "ease": "linear"
+          }
+        ],
+        "shake": [
+          {
+            "f0": 0,
+            "f1": 90,
+            "ampDeg": [
+              0.08,
+              0.14
+            ],
+            "mode": "random"
+          }
+        ]
+      },
+      "motionBlur": "auto",
+      "lookOverrides": {
+        "fog": {
+          "color": "#141624",
+          "density": 0.004
+        }
+      },
+      "shadow": {
+        "focus": [
+          0,
+          2,
+          -10
+        ],
+        "extent": 48
+      },
+      "vfx": [
+        {
+          "type": "props",
+          "items": [
+            {
+              "shape": "box",
+              "pos": [
+                0,
+                6.0,
+                -9.0
+              ],
+              "size": [
+                22.0,
+                12.0,
+                1.4
+              ],
+              "color": "#090a10"
+            }
+          ]
+        }
+      ],
+      "sound": "hit",
+      "sfx": [
+        {
+          "type": "whoosh_quick",
+          "at": 0
+        }
+      ]
+    },
+    {
+      "id": "10_dax_trapped",
+      "cue": 92,
+      "set": "tabletPlaza",
+      "look": "NIGHT_EMBER",
+      "actors": [
+        {
+          "character": "dax",
+          "pos": [
+            1.5,
+            -11.8
+          ],
+          "contactShadow": 0.7,
+          "yaw": 90,
+          "faces": [
+            {
+              "f": 0,
+              "v": "scream"
+            },
+            {
+              "f": 12,
+              "v": "nervous"
+            }
+          ],
+          "clips": [
+            {
+              "clip": "cryShake",
+              "at": 0
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fov": 45,
+        "keys": [
+          {
+            "u": 0,
+            "pos": [
+              2.4,
+              3.75,
+              -2.6000000000000014
+            ],
+            "target": [
+              2.4,
+              3.6,
+              -11.8
+            ]
+          },
+          {
+            "u": 0.35,
+            "pos": [
+              2.4,
+              3.65,
+              -5.000000000000001
+            ],
+            "target": [
+              2.4,
+              3.6,
+              -11.8
+            ],
+            "ease": "easeOutCubic"
+          },
+          {
+            "u": 1,
+            "pos": [
+              2.4,
+              3.65,
+              -5.408000000000001
+            ],
+            "target": [
+              2.4,
+              3.6,
+              -11.8
+            ],
+            "ease": "linear"
+          }
+        ]
+      },
+      "motionBlur": "auto",
+      "lookOverrides": {
+        "fog": {
+          "color": "#141624",
+          "density": 0.004
+        }
+      },
+      "shadow": {
+        "focus": [
+          0,
+          2,
+          -10
+        ],
+        "extent": 48
+      },
+      "vfx": [
+        {
+          "type": "props",
+          "items": [
+            {
+              "shape": "box",
+              "pos": [
+                0,
+                6.0,
+                -9.0
+              ],
+              "size": [
+                22.0,
+                12.0,
+                1.4
+              ],
+              "color": "#090a10"
+            },
+            {
+              "shape": "box",
+              "pos": [
+                4.0,
+                2.2,
+                -12.2
+              ],
+              "size": [
+                1.8,
+                2.4,
+                1.0
+              ],
+              "color": "#3c4352"
+            },
+            {
+              "shape": "box",
+              "pos": [
+                4.0,
+                2.5,
+                -11.6
+              ],
+              "size": [
+                0.32,
+                0.9,
+                0.35
+              ],
+              "color": "#ff3344",
+              "glow": 0.85
+            }
+          ]
+        }
+      ],
+      "sfx": [
+        {
+          "type": "riser_burst",
+          "at": 0,
+          "lead": 1.1
+        }
+      ]
+    },
+    {
+      "id": "11_understood",
+      "cue": 99,
+      "set": "tabletPlaza",
+      "look": "NIGHT_EMBER",
+      "actors": [
+        {
+          "character": "hype",
+          "pos": [
+            0.5,
+            -1.5
+          ],
+          "contactShadow": 0.7,
+          "yaw": 180,
+          "faces": [
+            {
+              "f": 0,
+              "v": "blank"
+            },
+            {
+              "f": 10,
+              "v": "bigHappy"
+            }
+          ],
+          "clips": [
+            {
+              "clip": "sitIdle",
+              "at": 0
+            },
+            {
+              "clip": "castForward",
+              "at": 10
+            }
+          ],
+          "talk": true
+        }
+      ],
+      "camera": {
+        "fov": 45,
+        "keys": [
+          {
+            "u": 0,
+            "pos": [
+              1.8,
+              2.55,
+              3.5
+            ],
+            "target": [
+              1.8,
+              2.4,
+              -8.0
+            ]
+          },
+          {
+            "u": 0.35,
+            "pos": [
+              1.8,
+              2.4499999999999997,
+              -0.5999999999999996
+            ],
+            "target": [
+              1.8,
+              2.4,
+              -8.0
+            ],
+            "ease": "easeOutCubic"
+          },
+          {
+            "u": 1,
+            "pos": [
+              1.8,
+              2.4499999999999997,
+              -1.0440000000000005
+            ],
+            "target": [
+              1.8,
+              2.4,
+              -8.0
+            ],
+            "ease": "linear"
+          }
+        ]
+      },
+      "motionBlur": "auto",
+      "lookOverrides": {
+        "fog": {
+          "color": "#141624",
+          "density": 0.004
+        }
+      },
+      "shadow": {
+        "focus": [
+          0,
+          2,
+          -10
+        ],
+        "extent": 48
+      },
+      "vfx": [
+        {
+          "type": "props",
+          "items": [
+            {
+              "shape": "box",
+              "pos": [
+                0,
+                6.0,
+                -9.0
+              ],
+              "size": [
+                22.0,
+                12.0,
+                1.4
+              ],
+              "color": "#090a10"
+            },
+            {
+              "shape": "box",
+              "pos": [
+                1.8,
+                0.08,
+                -7.0
+              ],
+              "size": [
+                1.0,
+                0.08,
+                13.0
+              ],
+              "color": "#a8b2c8",
+              "glow": 0.15
+            }
+          ]
+        },
+        {
+          "type": "flame",
+          "pos": [
+            0.5,
+            4.8,
+            1.5
+          ],
+          "size": 1.4
+        }
+      ],
+      "sfx": [
+        {
+          "type": "whoosh_air",
+          "at": 10
+        }
+      ]
+    },
+    {
+      "id": "12_clank",
+      "cue": 127,
+      "set": "tabletPlaza",
+      "look": "NIGHT_EMBER",
+      "actors": [],
+      "camera": {
+        "fov": 40,
+        "keys": [
+          {
+            "u": 0,
+            "pos": [
+              4.6,
+              2.6,
+              -6.6
+            ],
+            "target": [
+              4.0,
+              2.2,
+              -11.6
+            ]
+          },
+          {
+            "u": 1,
+            "pos": [
+              4.2,
+              2.5,
+              -7.5
+            ],
+            "target": [
+              4.0,
+              2.2,
+              -11.6
+            ],
+            "ease": "easeOutCubic"
+          }
+        ]
+      },
+      "motionBlur": "auto",
+      "lookOverrides": {
+        "fog": {
+          "color": "#141624",
+          "density": 0.004
+        }
+      },
+      "shadow": {
+        "focus": [
+          0,
+          2,
+          -10
+        ],
+        "extent": 48
+      },
+      "vfx": [
+        {
+          "type": "props",
+          "items": [
+            {
+              "shape": "box",
+              "pos": [
+                4.0,
+                2.2,
+                -12.2
+              ],
+              "size": [
+                1.8,
+                2.4,
+                1.0
+              ],
+              "color": "#3c4352"
+            },
+            {
+              "shape": "box",
+              "pos": [
+                4.0,
+                2.0,
+                -11.6
+              ],
+              "size": [
+                0.32,
+                0.9,
+                0.35
+              ],
+              "color": "#38ff88",
+              "glow": 1.0
+            }
+          ]
+        },
+        {
+          "type": "embers",
+          "count": 160,
+          "box": [
+            6,
+            6,
+            6
+          ],
+          "centre": [
+            4.0,
+            2.2,
+            -11.6
+          ],
+          "size": 0.24,
+          "gain": 2.4
+        }
+      ],
+      "sound": "hit",
+      "sfx": [
+        {
+          "type": "click",
+          "at": 0
+        }
+      ]
+    },
+    {
+      "id": "13_lights_gold",
+      "cue": 128,
+      "set": "tabletPlaza",
+      "look": "DAY_SUN",
+      "actors": [
+        {
+          "character": "hype",
+          "pos": [
+            0,
+            -2
+          ],
+          "contactShadow": 0.7,
+          "yaw": 0,
+          "faces": [
+            {
+              "f": 0,
+              "v": "bigHappy"
+            }
+          ],
+          "clips": [
+            {
+              "clip": "armsUp",
+              "at": 2
+            }
+          ],
+          "talk": true
+        }
+      ],
+      "camera": {
+        "fov": 48,
+        "keys": [
+          {
+            "u": 0,
+            "pos": [
+              1.2,
+              2.2,
+              8.0
+            ],
+            "target": [
+              0,
+              4.5,
+              -2
+            ]
+          },
+          {
+            "u": 1,
+            "pos": [
+              0.6,
+              2.0,
+              6.199999999999999
+            ],
+            "target": [
+              0,
+              4.6,
+              -2
+            ],
+            "ease": "easeOutQuad"
+          }
+        ]
+      },
+      "motionBlur": "auto",
+      "lookOverrides": {
+        "fog": {
+          "color": "#f5dfb8",
+          "density": 0.0022
+        }
+      },
+      "shadow": {
+        "focus": [
+          0,
+          2,
+          -8
+        ],
+        "extent": 44
+      },
+      "sfx": [
+        {
+          "type": "bell_pop",
+          "at": 0
+        }
+      ]
+    },
+    {
+      "id": "14_coda",
+      "cue": 132,
+      "set": "fireStreet",
+      "look": "DAY_SUN",
+      "actors": [
+        {
+          "character": "hype",
+          "pos": [
+            -1.4,
+            -2
+          ],
+          "contactShadow": 0.7,
+          "yaw": 20,
+          "faces": [
+            {
+              "f": 0,
+              "v": "laugh"
+            }
+          ],
+          "clips": [
+            {
+              "clip": "talkBounce",
+              "at": 0
+            }
+          ],
+          "talk": true
+        },
+        {
+          "character": "dax",
+          "pos": [
+            1.5,
+            -2
+          ],
+          "contactShadow": 0.7,
+          "yaw": -25,
+          "faces": [
+            {
+              "f": 0,
+              "v": "bigHappy"
+            }
+          ],
+          "clips": [
+            {
+              "clip": "presentPlate",
+              "at": 4
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fov": 45,
+        "keys": [
+          {
+            "u": 0,
+            "pos": [
+              0.1,
+              4.45,
+              9.0
+            ],
+            "target": [
+              0.1,
+              4.3,
+              -2
+            ]
+          },
+          {
+            "u": 0.35,
+            "pos": [
+              0.1,
+              4.35,
+              7.199999999999999
+            ],
+            "target": [
+              0.1,
+              4.3,
+              -2
+            ],
+            "ease": "easeOutCubic"
+          },
+          {
+            "u": 1,
+            "pos": [
+              0.1,
+              4.35,
+              6.648
+            ],
+            "target": [
+              0.1,
+              4.3,
+              -2
+            ],
+            "ease": "linear"
+          }
+        ]
+      },
+      "motionBlur": "auto",
+      "setParams": {
+        "flames": false,
+        "bowls": null
+      },
+      "lookOverrides": {
+        "fog": {
+          "color": "#c4d2ec",
+          "density": 0.0024
+        }
+      },
+      "shadow": {
+        "focus": [
+          0,
+          2,
+          -6
+        ],
+        "extent": 36
+      },
+      "vfx": [
+        {
+          "type": "props",
+          "items": [
+            {
+              "shape": "cyl",
+              "pos": [
+                0.4,
+                2.5,
+                -1.5
+              ],
+              "size": [
+                0.24,
+                0.6
+              ],
+              "color": "#ffd447",
+              "glow": 0.4
+            }
+          ]
+        }
+      ],
+      "sfx": [
+        {
+          "type": "pop_b",
+          "at": 6
+        }
+      ]
+    }
+  ]
+}

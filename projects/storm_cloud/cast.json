@@ -1,0 +1,232 @@
+{
+  "hero": {
+    "skin": "#e6b38a",
+    "hair": {
+      "style": "spikyTop",
+      "color": "#1c1e26"
+    },
+    "outfit": {
+      "torso": {
+        "kind": "varsity",
+        "color": "#262936",
+        "strip": "#191b24",
+        "trim": "#9b4dff"
+      },
+      "sleeves": {
+        "color": "#262936",
+        "length": 1,
+        "cuff": "#9b4dff"
+      },
+      "legs": {
+        "color": "#2b2e3a",
+        "length": 1,
+        "shoes": "#6f38c5"
+      }
+    }
+  },
+  "bram": {
+    "skin": "#d9a074",
+    "hair": {
+      "style": "curly",
+      "color": "#4a2c14"
+    },
+    "outfit": {
+      "torso": {
+        "kind": "varsity",
+        "color": "#e6a825",
+        "strip": "#fff1c4",
+        "trim": "#2d3a54"
+      },
+      "sleeves": {
+        "color": "#e6a825",
+        "length": 1,
+        "cuff": "#2d3a54"
+      },
+      "legs": {
+        "color": "#24304a",
+        "length": 1,
+        "shoes": "#1b1d26"
+      }
+    }
+  },
+  "grandpa": {
+    "skin": "#d4a281",
+    "hair": {
+      "style": "sidePart",
+      "color": "#c8cdd4"
+    },
+    "outfit": {
+      "torso": {
+        "kind": "coat",
+        "color": "#4a6b52",
+        "trim": "#c9b37e"
+      },
+      "sleeves": {
+        "color": "#4a6b52",
+        "length": 1
+      },
+      "legs": {
+        "color": "#3e4652",
+        "length": 1,
+        "shoes": "#2b221a"
+      }
+    }
+  },
+  "breeze_kid": {
+    "skin": "#f0c4a0",
+    "hair": {
+      "style": "ponytail",
+      "color": "#2b5c7a"
+    },
+    "outfit": {
+      "torso": {
+        "kind": "stripes",
+        "color": "#5ab0e6",
+        "color2": "#e8f4fc",
+        "bands": 4
+      },
+      "sleeves": {
+        "color": "#5ab0e6",
+        "length": 0.45
+      },
+      "legs": {
+        "color": "#355373",
+        "length": 1,
+        "shoes": "#1e2a38"
+      }
+    }
+  },
+  "mist_kid": {
+    "skin": "#c68c63",
+    "hair": {
+      "style": "bob",
+      "color": "#1f3a36"
+    },
+    "outfit": {
+      "torso": {
+        "kind": "plain",
+        "color": "#38a89d"
+      },
+      "sleeves": {
+        "color": "#38a89d",
+        "length": 0.5
+      },
+      "legs": {
+        "color": "#2c353d",
+        "length": 0.65,
+        "shoes": "#1a2228"
+      }
+    }
+  },
+  "guard": {
+    "skin": "#d8a37c",
+    "hair": {
+      "style": "beanie",
+      "color": "#3c4654"
+    },
+    "outfit": {
+      "torso": {
+        "kind": "coat",
+        "color": "#48566a",
+        "trim": "#b8c4d4"
+      },
+      "sleeves": {
+        "color": "#48566a",
+        "length": 1
+      },
+      "legs": {
+        "color": "#2a313c",
+        "length": 1,
+        "shoes": "#141820"
+      }
+    }
+  },
+  "nora": {
+    "skin": "#c68c63",
+    "body": "girl",
+    "faceStyle": "roblox",
+    "hair": {
+      "style": "bob",
+      "color": "#1f3a36"
+    },
+    "outfit": {
+      "torso": {
+        "kind": "plain",
+        "color": "#38a89d",
+        "trim": "#9b4dff"
+      },
+      "legs": {
+        "color": "#2c353d",
+        "length": 1,
+        "shoes": "#6f38c5"
+      }
+    },
+    "headphones": false
+  },
+  "sloane": {
+    "skin": "#f2cbb0",
+    "body": "girl",
+    "faceStyle": "roblox",
+    "hair": {
+      "style": "ponytail",
+      "color": "#d9b45b"
+    },
+    "outfit": {
+      "torso": {
+        "kind": "plain",
+        "color": "#2e5ce6",
+        "trim": "#9b4dff"
+      },
+      "legs": {
+        "color": "#1e2a4a",
+        "length": 1,
+        "shoes": "#6f38c5"
+      }
+    },
+    "headphones": false
+  },
+  "toby": {
+    "skin": "#f0c4a0",
+    "body": "boy",
+    "faceStyle": "roblox",
+    "hair": {
+      "style": "tufts",
+      "color": "#2b5c7a"
+    },
+    "outfit": {
+      "torso": {
+        "kind": "plain",
+        "color": "#5ab0e6",
+        "trim": "#9b4dff"
+      },
+      "legs": {
+        "color": "#355373",
+        "length": 1,
+        "shoes": "#6f38c5"
+      }
+    },
+    "headphones": false
+  },
+  "grandma": {
+    "skin": "#e8b896",
+    "body": "woman",
+    "faceStyle": "roblox",
+    "hair": {
+      "style": "bun",
+      "color": "#cfd4dc"
+    },
+    "outfit": {
+      "torso": {
+        "kind": "plain",
+        "color": "#6e5a8c",
+        "trim": "#9b4dff"
+      },
+      "legs": {
+        "color": "#342f40",
+        "length": 1,
+        "shoes": "#6f38c5"
+      }
+    },
+    "headphones": false
+  }
+}

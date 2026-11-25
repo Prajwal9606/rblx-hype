@@ -1,0 +1,642 @@
+[
+ {
+  "n": 1,
+  "id": "01_market_open",
+  "t": 0,
+  "dur": 2.67,
+  "line": "In this world, at midnight, the street lanterns float down to the",
+  "look": "NIGHT_EMBER",
+  "set": "tabletPlaza",
+  "camera": "wide, whip-in, push-in 35 %"
+ },
+ {
+  "n": 2,
+  "id": "02_wish_memory",
+  "t": 2.67,
+  "dur": 2.5,
+  "line": "square and trade one wish for one memory.",
+  "look": "NIGHT_EMBER",
+  "set": "tabletPlaza",
+  "camera": "medium, push-in 30 %"
+ },
+ {
+  "n": 3,
+  "id": "03_trade_line",
+  "t": 5.17,
+  "dur": 2.3,
+  "line": "You see, kids line up with moments to spare.",
+  "look": "DUSK_MAGENTA",
+  "set": "fireStreet",
+  "camera": "medium, push-in 24 %"
+ },
+ {
+  "n": 4,
+  "id": "04_bram_knee",
+  "t": 7.47,
+  "dur": 1.37,
+  "line": "Bram traded a scraped knee.",
+  "look": "DAY_SUN",
+  "set": "fireStreet",
+  "camera": "close-up, push-in 30 %"
+ },
+ {
+  "n": 5,
+  "id": "05_bram_bike",
+  "t": 8.83,
+  "dur": 0.93,
+  "line": "He got a new bike.",
+  "look": "DAY_SUN",
+  "set": "fireStreet",
+  "camera": "medium, whip-in, push-in 24 %"
+ },
+ {
+  "n": 6,
+  "id": "06_nora_rain",
+  "t": 9.77,
+  "dur": 1.63,
+  "line": "Nora traded a rainy Tuesday.",
+  "look": "DAY_SUN",
+  "set": "waterStreet",
+  "camera": "medium, push-in 27 %"
+ },
+ {
+  "n": 7,
+  "id": "07_nora_win",
+  "t": 11.4,
+  "dur": 1.17,
+  "line": "She won the big race.",
+  "look": "DAY_SUN",
+  "set": "waterStreet",
+  "camera": "medium, pan/whip"
+ },
+ {
+  "n": 8,
+  "id": "08_toby_gold",
+  "t": 12.57,
+  "dur": 2.57,
+  "line": "Toby traded his old scarf for a bag of gold.",
+  "look": "NIGHT_EMBER",
+  "set": "tabletPlaza",
+  "camera": "medium, push-in 30 %"
+ },
+ {
+  "n": 9,
+  "id": "09_one_rule",
+  "t": 15.13,
+  "dur": 1.5,
+  "line": "And there's only one rule.",
+  "look": "DAY_COOL",
+  "set": "waterCourtyard",
+  "camera": "medium"
+ },
+ {
+  "n": 10,
+  "id": "10_let_go",
+  "t": 16.63,
+  "dur": 1.97,
+  "line": "Give a memory you truly let go.",
+  "look": "DAY_COOL",
+  "set": "waterCourtyard",
+  "camera": "medium, push-in 27 %"
+ },
+ {
+  "n": 11,
+  "id": "11_takes_light",
+  "t": 18.6,
+  "dur": 2.33,
+  "line": "Otherwise the lantern takes the whole town's light.",
+  "look": "NIGHT_EMBER",
+  "set": "tabletPlaza",
+  "camera": "medium, shake"
+ },
+ {
+  "n": 12,
+  "id": "12_weird_part",
+  "t": 20.93,
+  "dur": 1.57,
+  "line": "But here's the weird part.",
+  "look": "NIGHT_EMBER",
+  "set": "tabletPlaza",
+  "camera": "close-up, push-in 6 %"
+ },
+ {
+  "n": 13,
+  "id": "13_empty_bright",
+  "t": 22.5,
+  "dur": 0.8,
+  "line": "Nobody asks why the",
+  "look": "NIGHT_EMBER",
+  "set": "tabletPlaza",
+  "camera": "medium, push-in 24 %"
+ },
+ {
+  "n": 14,
+  "id": "14_empty_inside",
+  "t": 23.3,
+  "dur": 2.97,
+  "line": "brightest lanterns feel completely empty inside.",
+  "look": "NIGHT_EMBER",
+  "set": "tabletPlaza",
+  "camera": "close-up, push-in 6 %"
+ },
+ {
+  "n": 15,
+  "id": "15_hype_intro",
+  "t": 26.27,
+  "dur": 2.23,
+  "line": "And me, I'm the most forgetful kid in town.",
+  "look": "DAY_SUN",
+  "set": "fireStreet",
+  "camera": "medium, whip-in, push-in 40 %"
+ },
+ {
+  "n": 16,
+  "id": "16_left_shoe",
+  "t": 28.5,
+  "dur": 2.27,
+  "line": "I lose my left shoe every morning.",
+  "look": "INTERIOR_NEUTRAL",
+  "set": "kitchen",
+  "camera": "medium, push-in 27 %"
+ },
+ {
+  "n": 17,
+  "id": "17_lunchbox_porch",
+  "t": 30.77,
+  "dur": 1.73,
+  "line": "I leave my lunchbox on the porch.",
+  "look": "DAY_SUN",
+  "set": "fireStreet",
+  "camera": "medium, push-in 24 %"
+ },
+ {
+  "n": 18,
+  "id": "18_slippers_walk",
+  "t": 32.5,
+  "dur": 1.9,
+  "line": "Yesterday I walked to school in slippers.",
+  "look": "DAY_SUN",
+  "set": "fireStreet",
+  "camera": "medium, pan/whip"
+ },
+ {
+  "n": 19,
+  "id": "19_toby_laughs",
+  "t": 34.4,
+  "dur": 1.47,
+  "line": "Toby laughed right in my face.",
+  "look": "DAY_SUN",
+  "set": "fireStreet",
+  "camera": "medium, push-in 24 %"
+ },
+ {
+  "n": 20,
+  "id": "20_calls_blank",
+  "t": 35.87,
+  "dur": 1.33,
+  "line": "He calls me Blank.",
+  "look": "DAY_SUN",
+  "set": "fireStreet",
+  "camera": "close-up, push-in 5 %"
+ },
+ {
+  "n": 21,
+  "id": "21_everyone_blank",
+  "t": 37.2,
+  "dur": 1.67,
+  "line": "Now everyone calls me Blank.",
+  "look": "DAY_COOL",
+  "set": "waterCourtyard",
+  "camera": "medium, push-in 24 %"
+ },
+ {
+  "n": 22,
+  "id": "22_grandma_says",
+  "t": 38.87,
+  "dur": 1.97,
+  "line": "Grandma always says one thing.",
+  "look": "INTERIOR_NEUTRAL",
+  "set": "kitchen",
+  "camera": "medium, push-in 25 %"
+ },
+ {
+  "n": 23,
+  "id": "23_empty_cup",
+  "t": 40.83,
+  "dur": 2.43,
+  "line": "\"An empty cup is the only one you can fill.\"",
+  "look": "INTERIOR_NEUTRAL",
+  "set": "kitchen",
+  "camera": "medium"
+ },
+ {
+  "n": 24,
+  "id": "24_winter_night",
+  "t": 43.27,
+  "dur": 2.57,
+  "line": "Then came the longest night of winter.",
+  "look": "DUSK_MAGENTA",
+  "set": "fireStreet",
+  "camera": "wide, whip-in, push-in 28 %"
+ },
+ {
+  "n": 25,
+  "id": "25_king_lantern",
+  "t": 45.83,
+  "dur": 2.93,
+  "line": "Toby stepped up to the giant king lantern in the square.",
+  "look": "NIGHT_EMBER",
+  "set": "tabletPlaza",
+  "camera": "wide, push-in 25 %"
+ },
+ {
+  "n": 26,
+  "id": "26_toby_wish",
+  "t": 48.77,
+  "dur": 2,
+  "line": "He wished to own the whole market.",
+  "look": "NIGHT_EMBER",
+  "set": "tabletPlaza",
+  "camera": "medium, push-in 30 %"
+ },
+ {
+  "n": 27,
+  "id": "27_brag_memory",
+  "t": 50.77,
+  "dur": 3.2,
+  "line": "He tried to trade a memory he still bragged about every day.",
+  "look": "NIGHT_EMBER",
+  "set": "tabletPlaza",
+  "camera": "medium"
+ },
+ {
+  "n": 28,
+  "id": "28_crack_black",
+  "t": 53.97,
+  "dur": 2.77,
+  "line": "Crack! The king lantern turned pitch black.",
+  "look": "NIGHT_EMBER",
+  "set": "tabletPlaza",
+  "camera": "medium, push-in 25 %, shake"
+ },
+ {
+  "n": 29,
+  "id": "29_lamps_out",
+  "t": 56.73,
+  "dur": 2.43,
+  "line": "Every streetlamp in town snapped out.",
+  "look": "NIGHT_EMBER",
+  "set": "fireStreet",
+  "camera": "wide, push-in 28 %, shake"
+ },
+ {
+  "n": 30,
+  "id": "30_darkness_square",
+  "t": 59.17,
+  "dur": 2.2,
+  "line": "Darkness swallowed the whole square.",
+  "look": "NIGHT_EMBER",
+  "set": "tabletPlaza",
+  "camera": "wide, push-in 27 %"
+ },
+ {
+  "n": 31,
+  "id": "31_bram_trophy",
+  "t": 61.37,
+  "dur": 1.63,
+  "line": "Bram offered his biggest trophy.",
+  "look": "NIGHT_EMBER",
+  "set": "tabletPlaza",
+  "camera": "medium, push-in 24 %"
+ },
+ {
+  "n": 32,
+  "id": "32_bram_fail",
+  "t": 63,
+  "dur": 1,
+  "line": "It failed.",
+  "look": "NIGHT_EMBER",
+  "set": "tabletPlaza",
+  "camera": "close-up, push-in 5 %, shake"
+ },
+ {
+  "n": 33,
+  "id": "33_nora_sprint",
+  "t": 64,
+  "dur": 1.9,
+  "line": "Nora offered her fastest sprint.",
+  "look": "NIGHT_EMBER",
+  "set": "tabletPlaza",
+  "camera": "medium, pan/whip"
+ },
+ {
+  "n": 34,
+  "id": "34_nora_fail",
+  "t": 65.9,
+  "dur": 1.27,
+  "line": "It failed.",
+  "look": "NIGHT_EMBER",
+  "set": "tabletPlaza",
+  "camera": "close-up, push-in 5 %, shake"
+ },
+ {
+  "n": 35,
+  "id": "35_toby_throw",
+  "t": 67.17,
+  "dur": 2.07,
+  "line": "Toby threw his bag of gold at the glass.",
+  "look": "NIGHT_EMBER",
+  "set": "tabletPlaza",
+  "camera": "medium, push-in 26 %"
+ },
+ {
+  "n": 36,
+  "id": "36_toby_fail",
+  "t": 69.23,
+  "dur": 1.1,
+  "line": "It failed.",
+  "look": "NIGHT_EMBER",
+  "set": "tabletPlaza",
+  "camera": "close-up, push-in 6 %, shake"
+ },
+ {
+  "n": 37,
+  "id": "37_toby_yells",
+  "t": 70.33,
+  "dur": 2,
+  "line": "\"Do something!\" Toby yelled.",
+  "look": "NIGHT_EMBER",
+  "set": "tabletPlaza",
+  "camera": "close-up"
+ },
+ {
+  "n": 38,
+  "id": "38_shivering_dark",
+  "t": 72.33,
+  "dur": 2.47,
+  "line": "Everyone stood shivering in the freezing dark.",
+  "look": "NIGHT_EMBER",
+  "set": "fireStreet",
+  "camera": "wide, push-in 27 %"
+ },
+ {
+  "n": 39,
+  "id": "39_understood",
+  "t": 74.8,
+  "dur": 1.63,
+  "line": "That's when I understood.",
+  "look": "NIGHT_EMBER",
+  "set": "tabletPlaza",
+  "camera": "medium"
+ },
+ {
+  "n": 40,
+  "id": "40_holding_tight",
+  "t": 76.43,
+  "dur": 2.47,
+  "line": "They were holding onto their memories too tight.",
+  "look": "NIGHT_EMBER",
+  "set": "tabletPlaza",
+  "camera": "medium, push-in 28 %"
+ },
+ {
+  "n": 41,
+  "id": "41_echo_grandma",
+  "t": 78.9,
+  "dur": 2.13,
+  "line": "Grandma's words echoed in my head.",
+  "look": "INTERIOR_NEUTRAL",
+  "set": "kitchen",
+  "camera": "medium"
+ },
+ {
+  "n": 42,
+  "id": "42_echo_cup",
+  "t": 81.03,
+  "dur": 2.53,
+  "line": "\"An empty cup is the only one you can fill.\"",
+  "look": "NIGHT_EMBER",
+  "set": "tabletPlaza",
+  "camera": "close-up, push-in 5 %"
+ },
+ {
+  "n": 43,
+  "id": "43_walk_lantern",
+  "t": 83.57,
+  "dur": 1.7,
+  "line": "I walked straight up to the black lantern.",
+  "look": "NIGHT_EMBER",
+  "set": "tabletPlaza",
+  "camera": "medium, pan/whip"
+ },
+ {
+  "n": 44,
+  "id": "44_give_lunchbox",
+  "t": 85.27,
+  "dur": 1.5,
+  "line": "I reached into my head",
+  "look": "NIGHT_EMBER",
+  "set": "tabletPlaza",
+  "camera": "close-up, push-in 5 %"
+ },
+ {
+  "n": 45,
+  "id": "45_lunchbox_toss",
+  "t": 86.77,
+  "dur": 2.03,
+  "line": "and gave it my lost lunchbox.",
+  "look": "NIGHT_EMBER",
+  "set": "tabletPlaza",
+  "camera": "medium, push-in 26 %"
+ },
+ {
+  "n": 46,
+  "id": "46_flicker",
+  "t": 88.8,
+  "dur": 1.03,
+  "line": "Flicker!",
+  "look": "NIGHT_EMBER",
+  "set": "tabletPlaza",
+  "camera": "medium, push-in 25 %, shake"
+ },
+ {
+  "n": 47,
+  "id": "47_tiny_spark",
+  "t": 89.83,
+  "dur": 2.63,
+  "line": "A tiny golden spark woke up inside the glass.",
+  "look": "NIGHT_EMBER",
+  "set": "tabletPlaza",
+  "camera": "medium, push-in 26 %"
+ },
+ {
+  "n": 48,
+  "id": "48_give_shoe",
+  "t": 92.47,
+  "dur": 2.03,
+  "line": "So I gave it my missing left shoe.",
+  "look": "NIGHT_EMBER",
+  "set": "tabletPlaza",
+  "camera": "close-up, push-in 30 %"
+ },
+ {
+  "n": 49,
+  "id": "49_glow_spark",
+  "t": 94.5,
+  "dur": 1.07,
+  "line": "Glow!",
+  "look": "NIGHT_EMBER",
+  "set": "tabletPlaza",
+  "camera": "medium, shake"
+ },
+ {
+  "n": 50,
+  "id": "50_give_slippers",
+  "t": 95.57,
+  "dur": 1.33,
+  "line": "Then I gave it yesterday's",
+  "look": "NIGHT_EMBER",
+  "set": "tabletPlaza",
+  "camera": "medium, push-in 30 %"
+ },
+ {
+  "n": 51,
+  "id": "51_give_homework",
+  "t": 96.9,
+  "dur": 1.5,
+  "line": "slippers, my forgotten",
+  "look": "NIGHT_EMBER",
+  "set": "tabletPlaza",
+  "camera": "close-up"
+ },
+ {
+  "n": 52,
+  "id": "52_give_tuesday",
+  "t": 98.4,
+  "dur": 1.67,
+  "line": "homework, and every",
+  "look": "NIGHT_EMBER",
+  "set": "tabletPlaza",
+  "camera": "medium, push-in 33 %"
+ },
+ {
+  "n": 53,
+  "id": "53_couldnt_remember",
+  "t": 100.07,
+  "dur": 2.87,
+  "line": "Tuesday I couldn't remember anyway.",
+  "look": "NIGHT_EMBER",
+  "set": "tabletPlaza",
+  "camera": "close-up"
+ },
+ {
+  "n": 54,
+  "id": "54_up_up_up",
+  "t": 102.93,
+  "dur": 1.37,
+  "line": "Up, up, up",
+  "look": "NIGHT_EMBER",
+  "set": "tabletPlaza",
+  "camera": "medium, push-in 30 %, shake"
+ },
+ {
+  "n": 55,
+  "id": "55_sky_flame",
+  "t": 104.3,
+  "dur": 1.97,
+  "line": "the flame shot into the sky!",
+  "look": "NIGHT_EMBER",
+  "set": "tabletPlaza",
+  "camera": "wide, push-in 32 %, shake"
+ },
+ {
+  "n": 56,
+  "id": "56_whoosh_on",
+  "t": 106.27,
+  "dur": 1.17,
+  "line": "Whoosh!",
+  "look": "NIGHT_EMBER",
+  "set": "fireStreet",
+  "camera": "wide, whip-in, push-in 27 %"
+ },
+ {
+  "n": 57,
+  "id": "57_town_lit",
+  "t": 107.43,
+  "dur": 3.27,
+  "line": "Every streetlamp snapped back on across the town.",
+  "look": "NIGHT_EMBER",
+  "set": "fireStreet",
+  "camera": "medium, push-in 26 %"
+ },
+ {
+  "n": 58,
+  "id": "58_warm_glow",
+  "t": 110.7,
+  "dur": 3.2,
+  "line": "Everyone stood in the warm glow, staring.",
+  "look": "NIGHT_EMBER",
+  "set": "tabletPlaza",
+  "camera": "medium, push-in 27 %"
+ },
+ {
+  "n": 59,
+  "id": "59_toby_whisper",
+  "t": 113.9,
+  "dur": 3.13,
+  "line": "\"Nice job, Blank,\" Toby whispered.",
+  "look": "NIGHT_EMBER",
+  "set": "tabletPlaza",
+  "camera": "medium"
+ },
+ {
+  "n": 60,
+  "id": "60_just_blank",
+  "t": 117.03,
+  "dur": 3.13,
+  "line": "\"Wait,\" he said. \"Just Blank is fine.\"",
+  "look": "NIGHT_EMBER",
+  "set": "tabletPlaza",
+  "camera": "medium, push-in 25 %"
+ },
+ {
+  "n": 61,
+  "id": "61_nobody_blank",
+  "t": 120.17,
+  "dur": 2.33,
+  "line": "Nobody called me Blank again.",
+  "look": "DAY_SUN",
+  "set": "fireStreet",
+  "camera": "medium, push-in 24 %"
+ },
+ {
+  "n": 62,
+  "id": "62_find_shoe",
+  "t": 122.5,
+  "dur": 3.07,
+  "line": "Toby even helped me find my left shoe this morning.",
+  "look": "DAY_SUN",
+  "set": "fireStreet",
+  "camera": "medium, push-in 27 %"
+ },
+ {
+  "n": 63,
+  "id": "63_coda_lunchbox",
+  "t": 125.57,
+  "dur": 3.37,
+  "line": "Now I still forget where I put my lunchbox.",
+  "look": "DAY_SUN",
+  "set": "fireStreet",
+  "camera": "medium"
+ },
+ {
+  "n": 64,
+  "id": "64_coda_end",
+  "t": 128.93,
+  "dur": 3.2,
+  "line": "Though I can't remember why that bothered me.",
+  "look": "DAY_SUN",
+  "set": "fireStreet",
+  "camera": "close-up, push-in 5 %"
+ }
+]
