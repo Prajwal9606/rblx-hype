@@ -98,8 +98,8 @@
     </header>
 
     <div class="tabs">
-      <button class="tab-btn active" onclick="switchTab('3d-tab')">🎮 3D Model Studio & 360 Editor</button>
-      <button class="tab-btn" onclick="switchTab('pipeline-tab')">⚡ 1-Click Production Pipeline</button>
+      <button class="tab-btn active" onclick="switchTab('3d-tab', this)">🎮 3D Model Studio & 360 Editor</button>
+      <button class="tab-btn" onclick="switchTab('pipeline-tab', this)">⚡ 1-Click Production Pipeline</button>
     </div>
 
     <!-- TAB 1: 3D MODEL STUDIO WITH 360 PREVIEW -->
@@ -154,6 +154,7 @@
 
             <label>Or Built-in Hair Style</label>
             <select id="param-hairStyle" onchange="updateHair()">
+              <option value="rblx_hype_hair_glb" selected>⭐ rblx_hype_hair.glb (Uploaded 3D Spiky Hair Model)</option>
               <option value="hypeSpiky">hypeSpiky (RBLX Hype Layered Anime)</option>
               <option value="tufts">tufts (Toby's Spiky Tufts)</option>
               <option value="curly">curly (Bram's Volume Curls)</option>
@@ -338,11 +339,16 @@
 
   <script>
     // Tab switching
-    function switchTab(tabId) {
+    function switchTab(tabId, el) {
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
       document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-      event.target.classList.add('active');
-      document.getElementById(tabId).classList.add('active');
+      if (el) {
+        el.classList.add('active');
+      } else if (window.event && window.event.target) {
+        window.event.target.classList.add('active');
+      }
+      const targetTab = document.getElementById(tabId);
+      if (targetTab) targetTab.classList.add('active');
       if (tabId === '3d-tab') onWindowResize();
     }
 
@@ -402,28 +408,42 @@
       const mtlLoader = new THREE.MTLLoader();
       mtlLoader.load('/models/rblx_hype_character.mtl', function(materials) {
         materials.preload();
+        // Ensure double sided rendering and visible colors
+        for (const m in materials.materials) {
+          materials.materials[m].side = THREE.DoubleSide;
+        }
         const objLoader = new THREE.OBJLoader();
         objLoader.setMaterials(materials);
         objLoader.load('/models/rblx_hype_character.obj', function(obj) {
-          // Center and scale object
+          obj.traverse(function(child) {
+            if (child.isMesh) {
+              child.castShadow = true;
+              child.receiveShadow = true;
+              if (child.material) {
+                child.material.side = THREE.DoubleSide;
+              }
+            }
+          });
+
+          // Compute bounding box to center and scale
           const box = new THREE.Box3().setFromObject(obj);
           const center = box.getCenter(new THREE.Vector3());
           const size = box.getSize(new THREE.Vector3());
           
           obj.position.x = -center.x;
-          obj.position.y = -box.min.y; // Sit on ground
+          obj.position.y = -box.min.y; // Sit directly on floor grid
           obj.position.z = -center.z;
           
           const maxDim = Math.max(size.x, size.y, size.z);
           if (maxDim > 0) {
-            const scaleFactor = 4.2 / maxDim;
+            const scaleFactor = 3.8 / maxDim;
             obj.scale.set(scaleFactor, scaleFactor, scaleFactor);
           }
 
           window.loadedRblxHypeObj = obj;
           avatarGroup.add(obj);
           updateTransform();
-          console.log("✅ rblx_hype_character.obj/.mtl loaded successfully!");
+          console.log("✅ rblx_hype_character.obj/.mtl loaded and centered successfully!");
         }, undefined, function(err) {
           console.error("Error loading OBJ:", err);
         });
@@ -455,20 +475,23 @@
       controls.minDistance = 1.5;
 
       // Studio Lighting
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
+      const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
       scene.add(ambientLight);
 
-      const keyLight = new THREE.DirectionalLight(0xfff5e6, 1.4);
-      keyLight.position.set(4, 6, 5);
-      keyLight.castShadow = true;
+      const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 1.0);
+      hemiLight.position.set(0, 10, 0);
+      scene.add(hemiLight);
+
+      const keyLight = new THREE.DirectionalLight(0xffffff, 1.5);
+      keyLight.position.set(5, 8, 6);
       scene.add(keyLight);
 
-      const fillLight = new THREE.DirectionalLight(0x38e8ff, 0.6);
-      fillLight.position.set(-5, 3, -3);
+      const fillLight = new THREE.DirectionalLight(0x38e8ff, 0.8);
+      fillLight.position.set(-6, 4, -4);
       scene.add(fillLight);
 
-      const rimLight = new THREE.DirectionalLight(0x9b4dff, 1.2);
-      rimLight.position.set(0, 5, -5);
+      const rimLight = new THREE.DirectionalLight(0x9b4dff, 1.4);
+      rimLight.position.set(0, 6, -6);
       scene.add(rimLight);
 
       // Floor Grid
@@ -515,19 +538,22 @@
 
       // Check if active model is the official rblx_hype_character.obj/.mtl
       if (activeCharId === "rblx_hype_obj") {
+        hairGroup = new THREE.Group();
+        avatarGroup.add(hairGroup);
         if (!window.loadedRblxHypeObj) {
           loadRblxHypeObjMtl();
-          return;
         } else {
           avatarGroup.add(window.loadedRblxHypeObj);
           updateTransform();
-          return;
         }
+        return;
       }
 
       // If a custom full 3D model is loaded from file, display that
       if (customModelMesh) {
         avatarGroup.add(customModelMesh);
+        hairGroup = new THREE.Group();
+        avatarGroup.add(hairGroup);
         updateTransform();
         return;
       }
@@ -610,13 +636,35 @@
     function rebuildHairMesh() {
       while (hairGroup.children.length > 0) hairGroup.remove(hairGroup.children[0]);
       
+      const c = charactersData[activeCharId];
+
+      // Auto load rblx_hype_hair.glb if selected
+      if (c.hairStyle === "rblx_hype_hair_glb") {
+        if (!window.loadedRblxHypeHairGlb) {
+          const gltfLoader = new THREE.GLTFLoader();
+          gltfLoader.load('/models/rblx_hype_hair.glb', function(gltf) {
+            const hair = gltf.scene;
+            hair.traverse(function(child) {
+              if (child.isMesh && child.material) {
+                child.material.side = THREE.DoubleSide;
+              }
+            });
+            window.loadedRblxHypeHairGlb = hair;
+            hairGroup.add(hair);
+            console.log("✅ rblx_hype_hair.glb loaded!");
+          });
+        } else {
+          hairGroup.add(window.loadedRblxHypeHairGlb);
+        }
+        return;
+      }
+
       // If a custom 3D hair file is loaded, use it
       if (customHairMesh) {
         hairGroup.add(customHairMesh);
         return;
       }
 
-      const c = charactersData[activeCharId];
       const mat = new THREE.MeshStandardMaterial({ color: c.hairColor, roughness: 0.65 });
 
       if (c.hairStyle === 'hypeSpiky') {

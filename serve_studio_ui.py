@@ -3,7 +3,7 @@ import sys
 import json
 import subprocess
 from pathlib import Path
-from http.server import HTTPServer, SimpleHTTPRequestHandler
+from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 
 PORT = 5050
 BASE_DIR = Path(__file__).resolve().parent
@@ -32,14 +32,17 @@ class StudioHandler(SimpleHTTPRequestHandler):
             file_name = self.path[len("/models/"):]
             file_path = BASE_DIR / "public" / "models" / file_name
             if file_path.exists():
-                content_type = "text/plain"
-                if file_name.endswith(".obj"):
+                content_type = "application/octet-stream"
+                if file_name.endswith(".obj") or file_name.endswith(".mtl"):
                     content_type = "text/plain"
-                elif file_name.endswith(".mtl"):
-                    content_type = "text/plain"
+                elif file_name.endswith(".glb"):
+                    content_type = "model/gltf-binary"
+                elif file_name.endswith(".gltf"):
+                    content_type = "model/gltf+json"
                 self.send_response(200)
                 self.send_header("Content-Type", content_type)
                 self.send_header("Content-Length", str(file_path.stat().st_size))
+                self.send_header("Access-Control-Allow-Origin", "*")
                 self.end_headers()
                 with open(file_path, "rb") as f:
                     self.wfile.write(f.read())
@@ -154,6 +157,6 @@ class StudioHandler(SimpleHTTPRequestHandler):
 
 if __name__ == "__main__":
     os.chdir(str(BASE_DIR))
-    server = HTTPServer(("localhost", PORT), StudioHandler)
+    server = ThreadingHTTPServer(("localhost", PORT), StudioHandler)
     print(f"🚀 RBLX Hype Studio UI running at: http://localhost:{PORT}")
     server.serve_forever()
